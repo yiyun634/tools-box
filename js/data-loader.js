@@ -23,29 +23,42 @@ class DataLoader {
         }
     }
 
-    // 加载所有数据
-    async loadAll() {
-        const [tools, templates, guides, searchIndex, analytics] = await Promise.all([
-            this.loadJSON('tools.json'),
-            this.loadJSON('templates.json'),
-            this.loadJSON('guides.json'),
-            this.loadJSON('search-index.json'),
-            this.loadJSON('analytics.json')
-        ]);
-
-        return { tools, templates, guides, searchIndex, analytics };
-    }
-
-    // 获取工具列表
-    async getTools() {
-        const data = await this.loadJSON('tools.json');
-        return data?.tools || [];
+    // 模板子目录映射
+    getTemplateSubdir(templateId) {
+        const map = {
+            'classic-resume': 'classic', 'modern-resume': 'modern', 'simple-resume': 'simple',
+            'developer-resume': 'developer', 'designer-resume': 'designer', 'pm-resume': 'pm',
+            'teacher-resume': 'teacher', 'nurse-resume': 'nurse', 'accountant-resume': 'accountant', 'sales-resume': 'sales',
+            'fresh-graduate-resume': 'fresh-graduate', 'intern-resume': 'intern', 'english-resume': 'english',
+            'two-column-resume': 'two-column', 'single-column-resume': 'single-column', 'creative-resume': 'creative',
+            'monthly-budget': 'monthly', 'annual-budget': 'annual', 'household-budget': 'household',
+            'project-budget': 'project', 'department-budget': 'department', 'wedding-budget': 'wedding',
+            'travel-budget': 'travel', 'renovation-budget': 'renovation', 'student-budget': 'student', 'investment-budget': 'investment',
+            'business-ppt': 'business', 'meeting-ppt': 'meeting', 'plan-ppt': 'plan', 'training-ppt': 'training',
+            'marketing-ppt': 'marketing', 'product-ppt': 'product', 'proposal-ppt': 'proposal', 'resume-ppt': 'resume',
+            'agile-plan': 'agile', 'waterfall-plan': 'waterfall', 'startup-plan': 'startup',
+            'marketing-plan': 'marketing', 'rnd-plan': 'rnd', 'event-plan': 'event', 'it-plan': 'it',
+            'daily-report-template': 'daily', 'weekly-report-template': 'weekly', 'monthly-report-template': 'monthly',
+            'project-weekly-report': 'project-weekly', 'sales-daily-report': 'sales', 'operations-daily-report': 'operations',
+            'customer-service-report': 'customer-service', 'admin-daily-report': 'admin',
+            'company-okr': 'company', 'department-okr': 'department', 'personal-okr': 'personal', 'team-okr': 'team', 'sales-okr': 'sales',
+            'standard-minutes': 'standard', 'executive-minutes': 'executive', 'project-meeting-minutes': 'project-meeting',
+            'sales-meeting-minutes': 'sales-meeting', 'training-meeting-minutes': 'training-minutes',
+            'crm-sales-followup': 'crm', 'sales-followup-template': 'record', 'potential-customer-table': 'potential-customer', 'contract-tracking-table': 'contract-tracking',
+            'expense-tracking-simple': 'simple', 'household-expense': 'household', 'reimbursement-table': 'reimbursement',
+        };
+        return map[templateId] || templateId;
     }
 
     // 获取模板列表
     async getTemplates() {
         const data = await this.loadJSON('templates.json');
-        return data?.templates || [];
+        const templates = data?.templates || [];
+        // 为每个模板添加path字段
+        return templates.map(t => ({
+            ...t,
+            path: `/templates/${t.category}/${this.getTemplateSubdir(t.id)}/`
+        }));
     }
 
     // 获取教程列表
@@ -77,141 +90,7 @@ class DataLoader {
         const guides = await this.getGuides();
         return guides.find(g => g.id === guideId);
     }
-
-    // 获取搜索索引
-    async getSearchIndex() {
-        const data = await this.loadJSON('search-index.json');
-        return data?.index || [];
-    }
-
-    // 搜索
-    async search(query) {
-        if (!query || query.length < 2) return { tools: [], templates: [], guides: [] };
-        
-        const index = await this.getSearchIndex();
-        const q = query.toLowerCase();
-        
-        const results = index.filter(item => {
-            const nameMatch = item.name.toLowerCase().includes(q);
-            const keywordMatch = item.keywords.some(k => k.toLowerCase().includes(q));
-            return nameMatch || keywordMatch;
-        });
-
-        return {
-            tools: results.filter(r => r.type === 'tool'),
-            templates: results.filter(r => r.type === 'template'),
-            guides: results.filter(r => r.type === 'guide')
-        };
-    }
-
-    // 获取热门内容
-    async getHot() {
-        const data = await this.loadJSON('analytics.json');
-        const hot = data?.hot || {};
-        
-        const templates = await this.getTemplates();
-        const tools = await this.getTools();
-        const guides = await this.getGuides();
-
-        return {
-            hotTemplates: (hot.hotTemplates || []).map(id => templates.find(t => t.id === id)).filter(Boolean),
-            hotTools: (hot.hotTools || []).map(id => tools.find(t => t.id === id)).filter(Boolean),
-            hotGuides: (hot.hotGuides || []).map(id => guides.find(g => g.id === id)).filter(Boolean)
-        };
-    }
-
-    // 获取最近使用
-    async getRecentlyUsed() {
-        const data = await this.loadJSON('analytics.json');
-        const recentlyUsed = data?.recentlyUsed || { items: [] };
-        
-        const templates = await this.getTemplates();
-        const tools = await this.getTools();
-        
-        return recentlyUsed.items.map(item => {
-            if (item.type === 'template') {
-                return { ...item, data: templates.find(t => t.id === item.id) };
-            } else if (item.type === 'tool') {
-                return { ...item, data: tools.find(t => t.id === item.id) };
-            }
-            return item;
-        }).filter(item => item.data);
-    }
-
-    // 添加到最近使用
-    async addToRecentlyUsed(type, id) {
-        const data = await this.loadJSON('analytics.json') || {};
-        const recentlyUsed = data.recentlyUsed || { items: [], maxItems: 10 };
-        
-        // 移除已存在的
-        recentlyUsed.items = recentlyUsed.items.filter(item => !(item.type === type && item.id === id));
-        
-        // 添加到开头
-        recentlyUsed.items.unshift({ type, id, timestamp: Date.now() });
-        
-        // 限制数量
-        recentlyUsed.items = recentlyUsed.items.slice(0, recentlyUsed.maxItems || 10);
-        recentlyUsed.lastUpdated = new Date().toISOString();
-        
-        data.recentlyUsed = recentlyUsed;
-        
-        // 保存到localStorage（前端本地存储）
-        localStorage.setItem('analytics', JSON.stringify(data));
-    }
-
-    // 获取收藏
-    async getFavorites() {
-        const data = await this.loadJSON('analytics.json');
-        const favorites = data?.favorites || { items: [] };
-        
-        const templates = await this.getTemplates();
-        const tools = await this.getTools();
-        
-        return favorites.items.map(item => {
-            if (item.type === 'template') {
-                return { ...item, data: templates.find(t => t.id === item.id) };
-            } else if (item.type === 'tool') {
-                return { ...item, data: tools.find(t => t.id === item.id) };
-            }
-            return item;
-        }).filter(item => item.data);
-    }
-
-    // 切换收藏状态
-    async toggleFavorite(type, id) {
-        const data = await this.loadJSON('analytics.json') || {};
-        const favorites = data.favorites || { items: [] };
-        
-        const index = favorites.items.findIndex(item => item.type === type && item.id === id);
-        
-        if (index >= 0) {
-            favorites.items.splice(index, 1);
-        } else {
-            favorites.items.push({ type, id, timestamp: Date.now() });
-        }
-        
-        favorites.lastUpdated = new Date().toISOString();
-        data.favorites = favorites;
-        
-        localStorage.setItem('analytics', JSON.stringify(data));
-        
-        return index < 0; // 返回是否添加成功
-    }
-
-    // 加载本地收藏数据
-    loadLocalFavorites() {
-        try {
-            const local = localStorage.getItem('analytics');
-            return local ? JSON.parse(local) : null;
-        } catch {
-            return null;
-        }
-    }
 }
 
-// 全局实例
+// 全局数据加载器
 const dataLoader = new DataLoader();
-
-// 导出
-window.DataLoader = DataLoader;
-window.dataLoader = dataLoader;
