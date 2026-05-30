@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费图片拼接工具 - 横向纵向合并多张图片</title>
+    <meta name="description" content="免费的在线图片拼接工具，将多张图片横向或纵向合并成一张。无需上传，浏览器本地处理，支持自定义间距和背景颜色。">
+    <meta name="keywords" content="图片拼接,图片合并,横向拼接,纵向拼接,多图合并,拼图工具">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tools-box-nine.vercel.app/image-merge">
+    
+    <meta property="og:title" content="免费图片拼接工具 - 横向纵向合并多张图片">
+    <meta property="og:description" content="免费的在线图片拼接工具，将多张图片合并成一张。">
+    <meta property="og:type" content="website">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "免费图片拼接工具",
+        "description": "免费的在线图片拼接工具，支持横向纵向合并多张图片。",
+        "url": "https://tools-box-nine.vercel.app/image-merge",
+        "applicationCategory": "UtilityApplication",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "支持拼接多少张图片？", "acceptedAnswer": {"@type": "Answer", "text": "支持任意数量的图片拼接，建议不超过20张以获得最佳效果。"}},
+            {"@type": "Question", "name": "可以调整图片之间的间距吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以，您可以通过间距设置调整图片之间的像素距离，还可以自定义背景颜色。"}},
+            {"@type": "Question", "name": "支持横向和纵向拼接吗？", "acceptedAnswer": {"@type": "Answer", "text": "支持。横向拼接将图片从左到右排列，纵向拼接将图片从上到下排列。"}}
+        ]
+    }
+    </script>
+    
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .header{background:white;box-shadow:0 2px 10px rgba(0,0,0,0.08);padding:15px 0;position:sticky;top:0;z-index:100}
+        .nav{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+        .logo{font-size:1.3rem;font-weight:700;color:#667eea;text-decoration:none}
+        .nav-links{display:flex;gap:20px;flex-wrap:wrap}
+        .nav-links a{color:#64748b;text-decoration:none;font-weight:500}
+        .nav-links a:hover{color:#667eea}
+        
+        .breadcrumb{max-width:1200px;margin:20px auto 0;padding:0 20px;font-size:0.9rem;color:#64748b}
+        .breadcrumb a{color:#667eea;text-decoration:none}
+        
+        .container{max-width:900px;margin:0 auto;padding:30px 20px}
+        h1{font-size:2rem;color:#1e293b;margin-bottom:10px}
+        .subtitle{color:#64748b;margin-bottom:30px;font-size:1.1rem}
+        
+        .tool-card{background:white;border-radius:16px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:30px}
+        
+        .drop-zone{border:3px dashed #cbd5e1;border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:all 0.3s;background:#f8fafc;margin-bottom:20px}
+        .drop-zone:hover,.drop-zone.dragover{border-color:#667eea;background:#f0f4ff}
+        .drop-zone-icon{font-size:3rem;margin-bottom:10px}
+        .drop-zone h3{color:#1e293b;margin-bottom:8px}
+        .drop-zone p{color:#64748b;font-size:0.9rem}
+        
+        .image-list{margin:20px 0;max-height:300px;overflow-y:auto}
+        .image-item{display:flex;align-items:center;gap:15px;padding:12px;background:#f8fafc;border-radius:8px;margin-bottom:10px}
+        .image-item img{width:60px;height:60px;object-fit:cover;border-radius:6px}
+        .image-item .info{flex:1}
+        .image-item .name{font-weight:600;color:#1e293b;font-size:0.95rem}
+        .image-item .size{font-size:0.85rem;color:#64748b}
+        .image-item .remove{background:#ef4444;color:white;border:none;padding:8px 15px;border-radius:6px;cursor:pointer;font-size:0.9rem}
+        .image-item .remove:hover{background:#dc2626}
+        
+        .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:25px 0}
+        .control-group{display:flex;flex-direction:column;gap:8px}
+        .control-group label{font-weight:600;color:#1e293b;font-size:0.95rem}
+        .control-group input,.control-group select{ padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem}
+        .control-group input:focus,.control-group select:focus{outline:none;border-color:#667eea}
+        
+        .btn{background:#667eea;color:white;border:none;padding:15px 30px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s;width:100%}
+        .btn:hover{background:#5a6fd6}
+        .btn:disabled{background:#cbd5e1;cursor:not-allowed}
+        
+        .preview{margin-top:25px;text-align:center;display:none}
+        .preview.show{display:block}
+        .preview img{max-width:100%;max-height:500px;border-radius:8px;border:2px solid #e2e8f0}
+        
+        .result{margin-top:25px;padding:20px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac;display:none}
+        .result.show{display:block}
+        .result h4{color:#166534;margin-bottom:15px}
+        .download-btn{background:#22c55e;color:white;border:none;padding:15px 30px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%}
+        .download-btn:hover{background:#16a34a}
+        
+        .ad-placeholder{background:#f1f5f9;border:2px dashed #cbd5e1;border-radius:12px;padding:30px;color:#94a3b8;text-align:center;max-width:728px;margin:30px auto}
+        
+        .content-section{background:white;border-radius:16px;padding:30px;margin:30px 0;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+        .content-section h2{color:#1e293b;margin-bottom:20px;font-size:1.5rem;border-bottom:3px solid #667eea;padding-bottom:10px}
+        .content-section h3{color:#334155;margin:25px 0 15px;font-size:1.2rem}
+        .content-section p{color:#475569;margin-bottom:15px;line-height:1.8}
+        
+        .faq-item{margin-bottom:20px;border-bottom:1px solid #e2e8f0;padding-bottom:20px}
+        .faq-item:last-child{border-bottom:none}
+        .faq-question{font-weight:600;color:#1e293b;margin-bottom:10px}
+        .faq-answer{color:#64748b;line-height:1.7}
+        
+        .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px;margin-top:20px}
+        .related-tool{background:#f8fafc;padding:20px;border-radius:12px;text-decoration:none;color:inherit;transition:all 0.3s;border:2px solid transparent}
+        .related-tool:hover{border-color:#667eea;transform:translateY(-3px)}
+        .related-tool h4{color:#667eea;margin-bottom:5px}
+        .related-tool p{font-size:0.9rem;color:#64748b}
+        
+        .footer{background:#1e293b;color:#94a3b8;text-align:center;padding:40px 20px;margin-top:60px}
+        .footer a{color:white;text-decoration:none}
+        .footer-links{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-bottom:20px}
+        
+        @media(max-width:768px){
+            h1{font-size:1.5rem}
+            .controls{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">🛠️ 免费工具箱</a>
+            <div class="nav-links">
+                <a href="/">全部工具</a>
+                <a href="/#image-tools">图片工具</a>
+                <a href="/#pdf-tools">PDF工具</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="breadcrumb">
+        <a href="/">首页</a> &gt; <a href="/#image-tools">图片工具</a> &gt; 图片拼接
+    </div>
+    
+    <main class="container">
+        <h1>🖼️ 免费图片拼接工具</h1>
+        <p class="subtitle">将多张图片横向或纵向合并成一张，无需上传，完全免费</p>
+        
+        <div class="tool-card">
+            <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                <div class="drop-zone-icon">📁</div>
+                <h3>点击或拖拽图片到这里</h3>
+                <p>支持 JPEG、PNG、WebP 格式，可添加多张图片</p>
+                <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple>
+            </div>
+            
+            <div class="image-list" id="imageList"></div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label>拼接方向</label>
+                    <select id="direction">
+                        <option value="horizontal">横向拼接（左右）</option>
+                        <option value="vertical">纵向拼接（上下）</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>图片间距（像素）</label>
+                    <input type="number" id="spacing" value="0" min="0" max="50">
+                </div>
+                <div class="control-group">
+                    <label>背景颜色</label>
+                    <input type="color" id="bgColor" value="#ffffff">
+                </div>
+            </div>
+            
+            <button class="btn" id="mergeBtn" onclick="mergeImages()" disabled>拼接图片</button>
+            
+            <div class="preview" id="preview">
+                <h4 style="margin-bottom:15px;color:#1e293b">拼接预览：</h4>
+                <img id="previewImg" alt="预览">
+            </div>
+            
+            <div class="result" id="result">
+                <h4>✅ 拼接完成！</h4>
+                <button class="download-btn" onclick="downloadMerged()">📥 下载拼接后的图片</button>
+            </div>
+        </div>
+        
+        <div class="ad-placeholder">Google AdSense 广告位 728x90</div>
+        
+        <section class="content-section">
+            <h2>📖 使用教程</h2>
+            <h3>第一步：添加图片</h3>
+            <p>点击上传区域或直接拖拽图片到该区域。您可以一次选择多张图片，支持JPEG、PNG和WebP格式。建议先添加需要拼接的图片，按您想要的顺序排列。</p>
+            
+            <h3>第二步：调整设置</h3>
+            <p>选择拼接方向：横向是从左到右排列，纵向是从上到下排列。调整图片之间的间距像素值，设置背景颜色。间距为0时图片将紧密相连。</p>
+            
+            <h3>第三步：生成并下载</h3>
+            <p>点击"拼接图片"按钮，系统会在浏览器中快速处理，生成拼接后的完整图片。预览满意后点击下载按钮保存到您的设备。</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>💡 使用场景</h2>
+            <h3>社交媒体分享</h3>
+            <p>微信朋友圈、小红书、微博等平台限制单张图片大小时，将多张精彩照片拼接成一张长图，可以讲述更完整的故事，吸引更多关注和点赞。</p>
+            
+            <h3>产品展示</h3>
+            <p>电商卖家可以将产品的多个角度或细节图拼接成一张全景图，让顾客一目了然，提升商品详情页的专业度和转化率。</p>
+            
+            <h3>漫画和故事板</h3>
+            <p>内容创作者可以将分镜漫画或故事板图片拼接成连贯的长图，方便分享到社交媒体或嵌入到文章中。</p>
+            
+            <h3>对比图制作</h3>
+            <p>将修改前后的图片并排拼接，直观展示效果差异。适用于设计作品对比、产品改进展示等场景。</p>
+            
+            <h3>聊天记录保存</h3>
+            <p>将多张聊天截图拼接成一张长图，方便保存和分享重要的对话记录。</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>❓ 常见问题</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">支持拼接多少张图片？</div>
+                <div class="faq-answer">支持任意数量的图片拼接，建议不超过20张以获得最佳效果和处理速度。图片数量越多，处理时间越长。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">可以调整图片之间的间距吗？</div>
+                <div class="faq-answer">可以。您可以通过间距设置调整图片之间的像素距离（0-50像素），还可以自定义背景颜色来适配不同场景需求。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">支持横向和纵向拼接吗？</div>
+                <div class="faq-answer">支持。横向拼接将图片从左到右排列，纵向拼接将图片从上到下排列。根据您的需求选择合适的拼接方向。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">拼接后的图片分辨率是多少？</div>
+                <div class="faq-answer">拼接后的图片分辨率等于所有图片拼在一起的总尺寸。横向拼接时高度为最高的那张图片高度，纵向拼接时宽度为最宽的那张图片宽度。</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">我的图片会上传到服务器吗？</div>
+                <div class="faq-answer">不会。所有图片处理都在您的浏览器中使用JavaScript和Canvas API完成，文件永远不会离开您的设备。</div>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>🔧 相关工具</h2>
+            <div class="related-tools">
+                <a href="/image-compress" class="related-tool">
+                    <h4>🗜️ 图片压缩</h4>
+                    <p>压缩图片文件大小</p>
+                </a>
+                <a href="/image-crop" class="related-tool">
+                    <h4>✂️ 图片裁剪</h4>
+                    <p>裁剪调整图片尺寸</p>
+                </a>
+                <a href="/image-to-pdf" class="related-tool">
+                    <h4>📄 图片转PDF</h4>
+                    <p>将图片转换为PDF</p>
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/">全部工具</a>
+            <a href="/image-compress">图片压缩</a>
+            <a href="/image-merge">图片拼接</a>
+            <a href="/bmi-calculator">BMI计算器</a>
+        </div>
+        <p>🛠️ 免费在线工具箱 - 所有工具永久免费</p>
+    </footer>
+    
+    <script>
+        let images = [];
+        
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const imageList = document.getElementById('imageList');
+        
+        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
+        dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+        fileInput.addEventListener('change', e => { handleFiles(e.target.files); });
+        
+        function handleFiles(files) {
+            for (let file of files) {
+                if (!file.type.match(/^image\/(jpeg|png|webp)$/)) continue;
+                const reader = new FileReader();
+                reader.onload = e => {
+                    images.push({ file, dataUrl: e.target.result });
+                    renderImageList();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function renderImageList() {
+            imageList.innerHTML = images.map((img, i) => `
+                <div class="image-item">
+                    <img src="${img.dataUrl}" alt="图片${i+1}">
+                    <div class="info">
+                        <div class="name">图片 ${i+1}</div>
+                        <div class="size">${(img.file.size/1024).toFixed(1)} KB</div>
+                    </div>
+                    <button class="remove" onclick="removeImage(${i})">删除</button>
+                </div>
+            `).join('');
+            document.getElementById('mergeBtn').disabled = images.length < 2;
+        }
+        
+        function removeImage(index) {
+            images.splice(index, 1);
+            renderImageList();
+        }
+        
+        function mergeImages() {
+            if (images.length < 2) return;
+            
+            const direction = document.getElementById('direction').value;
+            const spacing = parseInt(document.getElementById('spacing').value) || 0;
+            const bgColor = document.getElementById('bgColor').value;
+            
+            const loadedImages = [];
+            let loadedCount = 0;
+            
+            images.forEach((img, i) => {
+                const image = new Image();
+                image.onload = () => {
+                    loadedImages[i] = image;
+                    loadedCount++;
+                    if (loadedCount === images.length) {
+                        calculateAndDraw();
+                    }
+                };
+                image.src = img.dataUrl;
+            });
+            
+            function calculateAndDraw() {
+                let totalWidth = 0, totalHeight = 0, maxWidth = 0, maxHeight = 0;
+                
+                if (direction === 'horizontal') {
+                    images.forEach((_, i) => {
+                        totalWidth += loadedImages[i].width;
+                        if (i < images.length - 1) totalWidth += spacing;
+                        maxHeight = Math.max(maxHeight, loadedImages[i].height);
+                    });
+                    totalHeight = maxHeight;
+                    totalWidth = Math.max(totalWidth, maxHeight);
+                } else {
+                    images.forEach((_, i) => {
+                        totalHeight += loadedImages[i].height;
+                        if (i < images.length - 1) totalHeight += spacing;
+                        maxWidth = Math.max(maxWidth, loadedImages[i].width);
+                    });
+                    totalWidth = maxWidth;
+                    totalHeight = Math.max(totalHeight, maxWidth);
+                }
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = totalWidth;
+                canvas.height = totalHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = bgColor;
+                ctx.fillRect(0, 0, totalWidth, totalHeight);
+                
+                let x = 0, y = 0;
+                images.forEach((_, i) => {
+                    const img = loadedImages[i];
+                    if (direction === 'horizontal') {
+                        ctx.drawImage(img, x, (totalHeight - img.height) / 2);
+                        x += img.width + spacing;
+                    } else {
+                        ctx.drawImage(img, (totalWidth - img.width) / 2, y);
+                        y += img.height + spacing;
+                    }
+                });
+                
+                canvas.toBlob(blob => {
+                    const url = URL.createObjectURL(blob);
+                    document.getElementById('previewImg').src = url;
+                    document.getElementById('preview').classList.add('show');
+                    document.getElementById('result').classList.add('show');
+                    window.mergedBlob = blob;
+                }, 'image/png');
+            }
+        }
+        
+        function downloadMerged() {
+            if (!window.mergedBlob) return;
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(window.mergedBlob);
+            link.download = 'merged_' + Date.now() + '.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>

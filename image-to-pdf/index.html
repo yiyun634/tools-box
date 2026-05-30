@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费图片转PDF工具 - 在线将图片转换为PDF</title>
+    <meta name="description" content="免费的在线图片转PDF工具，将JPG、PNG等图片转换为PDF文件。多图合并成一份PDF，浏览器本地处理，无需上传。">
+    <meta name="keywords" content="图片转PDF,JPG转PDF,PNG转PDF,图片转PDF工具,在线转换,多图合并PDF">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tools-box-nine.vercel.app/image-to-pdf">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "免费图片转PDF工具",
+        "description": "免费的在线图片转PDF工具，将图片转换为PDF或多图合并为一份PDF。",
+        "url": "https://tools-box-nine.vercel.app/image-to-pdf",
+        "applicationCategory": "UtilityApplication",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "可以将多张图片合并成一个PDF吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以。您可以上传多张图片，它们会按顺序合并成一份PDF文件，每张图片占用一页。"}},
+            {"@type": "Question", "name": "支持哪些图片格式？", "acceptedAnswer": {"@type": "Answer", "text": "支持JPEG、PNG、WebP等常见图片格式转换成PDF。"}}
+        ]
+    }
+    </script>
+    
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .header{background:white;box-shadow:0 2px 10px rgba(0,0,0,0.08);padding:15px 0;position:sticky;top:0;z-index:100}
+        .nav{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+        .logo{font-size:1.3rem;font-weight:700;color:#667eea;text-decoration:none}
+        .nav-links{display:flex;gap:20px;flex-wrap:wrap}
+        .nav-links a{color:#64748b;text-decoration:none;font-weight:500}
+        .nav-links a:hover{color:#667eea}
+        .breadcrumb{max-width:1200px;margin:20px auto 0;padding:0 20px;font-size:0.9rem;color:#64748b}
+        .breadcrumb a{color:#667eea;text-decoration:none}
+        .container{max-width:900px;margin:0 auto;padding:30px 20px}
+        h1{font-size:2rem;color:#1e293b;margin-bottom:10px}
+        .subtitle{color:#64748b;margin-bottom:30px;font-size:1.1rem}
+        .tool-card{background:white;border-radius:16px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:30px}
+        
+        .drop-zone{border:3px dashed #cbd5e1;border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:all 0.3s;background:#f8fafc;margin-bottom:20px}
+        .drop-zone:hover{border-color:#667eea;background:#f0f4ff}
+        .drop-zone-icon{font-size:3rem;margin-bottom:10px}
+        .drop-zone h3{color:#1e293b;margin-bottom:8px}
+        .drop-zone p{color:#64748b;font-size:0.9rem}
+        .drop-zone input{display:none}
+        
+        .image-list{margin:20px 0;max-height:250px;overflow-y:auto}
+        .image-item{display:flex;align-items:center;gap:15px;padding:12px;background:#f8fafc;border-radius:8px;margin-bottom:10px}
+        .image-item img{width:50px;height:50px;object-fit:cover;border-radius:6px}
+        .image-item .info{flex:1}
+        .image-item .name{font-weight:600;color:#1e293b;font-size:0.9rem}
+        .image-item .page{font-size:0.85rem;color:#64748b}
+        .image-item .remove{background:#ef4444;color:white;border:none;padding:8px 15px;border-radius:6px;cursor:pointer}
+        
+        .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:20px 0}
+        .control-group{display:flex;flex-direction:column;gap:8px}
+        .control-group label{font-weight:600;color:#1e293b;font-size:0.95rem}
+        .control-group input,.control-group select{padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem}
+        
+        .btn{background:#667eea;color:white;border:none;padding:15px 30px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s;width:100%}
+        .btn:hover{background:#5a6fd6}
+        .btn:disabled{background:#cbd5e1;cursor:not-allowed}
+        
+        .result{margin-top:25px;padding:20px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac;display:none}
+        .result.show{display:block}
+        .result h4{color:#166534;margin-bottom:15px}
+        .result-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:15px 0}
+        .stat{text-align:center;padding:15px;background:white;border-radius:8px}
+        .stat-value{font-size:1.3rem;font-weight:700;color:#16723b}
+        .stat-label{font-size:0.85rem;color:#64748b}
+        .download-btn{background:#22c55e;color:white;border:none;padding:15px 30px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%}
+        
+        .ad-placeholder{background:#f1f5f9;border:2px dashed #cbd5e1;border-radius:12px;padding:30px;color:#94a3b8;text-align:center;max-width:728px;margin:30px auto}
+        .content-section{background:white;border-radius:16px;padding:30px;margin:30px 0;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+        .content-section h2{color:#1e293b;margin-bottom:20px;font-size:1.5rem;border-bottom:3px solid #667eea;padding-bottom:10px}
+        .content-section h3{color:#334155;margin:25px 0 15px;font-size:1.2rem}
+        .content-section p{color:#475569;margin-bottom:15px;line-height:1.8}
+        .faq-item{margin-bottom:20px;border-bottom:1px solid #e2e8f0;padding-bottom:20px}
+        .faq-question{font-weight:600;color:#1e293b;margin-bottom:10px}
+        .faq-answer{color:#64748b;line-height:1.7}
+        .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px;margin-top:20px}
+        .related-tool{background:#f8fafc;padding:20px;border-radius:12px;text-decoration:none;color:inherit;transition:all 0.3s;border:2px solid transparent}
+        .related-tool:hover{border-color:#667eea;transform:translateY(-3px)}
+        .related-tool h4{color:#667eea;margin-bottom:5px}
+        .related-tool p{font-size:0.9rem;color:#64748b}
+        .footer{background:#1e293b;color:#94a3b8;text-align:center;padding:40px 20px;margin-top:60px}
+        .footer a{color:white;text-decoration:none}
+        .footer-links{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-bottom:20px}
+        @media(max-width:768px){h1{font-size:1.5rem}.controls{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">🛠️ 免费工具箱</a>
+            <div class="nav-links"><a href="/">全部工具</a><a href="/#image-tools">图片工具</a><a href="/#pdf-tools">PDF工具</a></div>
+        </nav>
+    </header>
+    <div class="breadcrumb"><a href="/">首页</a> &gt; <a href="/#pdf-tools">PDF工具</a> &gt; 图片转PDF</div>
+    
+    <main class="container">
+        <h1>📄 免费图片转PDF工具</h1>
+        <p class="subtitle">将图片转换为PDF或多图合并成一份PDF，完全免费</p>
+        
+        <div class="tool-card">
+            <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                <div class="drop-zone-icon">📁</div>
+                <h3>点击或拖拽图片到这里</h3>
+                <p>支持 JPEG、PNG、WebP，可添加多张图片</p>
+                <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple>
+            </div>
+            
+            <div class="image-list" id="imageList"></div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label>PDF页面方向</label>
+                    <select id="orientation">
+                        <option value="portrait">竖向</option>
+                        <option value="landscape">横向</option>
+                        <option value="auto">自动（根据图片）</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>图片质量</label>
+                    <select id="quality">
+                        <option value="0.5">标准（推荐）</option>
+                        <option value="0.8">高质量</option>
+                        <option value="1">最高质量</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button class="btn" id="convertBtn" onclick="convertToPdf()" disabled>转换为PDF</button>
+            
+            <div class="result" id="result">
+                <h4>✅ 转换完成！</h4>
+                <div class="result-stats">
+                    <div class="stat"><div class="stat-value" id="pageCount">-</div><div class="stat-label">PDF页数</div></div>
+                    <div class="stat"><div class="stat-value" id="pdfSize">-</div><div class="stat-label">文件大小</div></div>
+                </div>
+                <button class="download-btn" onclick="downloadPdf()">📥 下载PDF文件</button>
+            </div>
+        </div>
+        
+        <div class="ad-placeholder">Google AdSense 广告位 728x90</div>
+        
+        <section class="content-section">
+            <h2>📖 使用教程</h2>
+            <h3>第一步：添加图片</h3>
+            <p>点击上传区域或拖拽添加图片，支持一次添加多张图片。您可以调整图片的上下顺序来控制PDF中的页面顺序。</p>
+            <h3>第二步：设置参数</h3>
+            <p>选择PDF页面方向：竖向适合手机照片，横向适合宽屏截图。自动模式会根据图片原始方向选择最佳布局。</p>
+            <h3>第三步：生成并下载</h3>
+            <p>点击"转换为PDF"按钮，系统会使用JavaScript在浏览器中生成PDF文件，每张图片占用一页。完成后点击下载保存。</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>💡 使用场景</h2>
+            <h3>文档电子化</h3>
+            <p>将拍摄的纸质文档、发票、合同照片转换成PDF，方便存档和邮件发送。比起图片，PDF更专业且易于打印。</p>
+            <h3>电子相册制作</h3>
+            <p>将旅行照片、会议照片按时间顺序合并成一份PDF相册，整理照片的同时也便于分享给他人。</p>
+            <h3>简历整理</h3>
+            <p>将简历封面、学历证明、技能证书等图片合并成一份完整的PDF文件，方便HR查看和存档。</p>
+            <h3>产品手册</h3>
+            <p>将产品图片、说明书页合并成一份PDF手册，方便客户下载和打印，提升产品专业度。</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>❓ 常见问题</h2>
+            <div class="faq-item">
+                <div class="faq-question">可以将多张图片合并成一个PDF吗？</div>
+                <div class="faq-answer">可以。上传多张图片后，它们会按顺序合并成一份PDF，每张图片占用一页。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">支持哪些图片格式？</div>
+                <div class="faq-answer">支持JPEG、PNG、WebP等常见图片格式。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">生成的PDF在哪里？</div>
+                <div class="faq-answer">PDF在浏览器中生成，直接下载到您的设备，不会上传到任何服务器。</div>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>🔧 相关工具</h2>
+            <div class="related-tools">
+                <a href="/pdf-to-image" class="related-tool"><h4>🖼️ PDF转图片</h4><p>PDF页面转图片</p></a>
+                <a href="/image-merge" class="related-tool"><h4>🖼️ 图片拼接</h4><p>合并多张图片</p></a>
+                <a href="/image-compress" class="related-tool"><h4>🗜️ 图片压缩</h4><p>压缩图片体积</p></a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-links"><a href="/">全部工具</a><a href="/image-to-pdf">图片转PDF</a><a href="/pdf-to-image">PDF转图片</a></div>
+        <p>🛠️ 免费在线工具箱 - 所有工具永久免费</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script>
+        let images = [];
+        
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        
+        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
+        dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+        fileInput.addEventListener('change', e => { handleFiles(e.target.files); });
+        
+        function handleFiles(files) {
+            for (let file of files) {
+                if (!file.type.match(/^image\/(jpeg|png|webp)$/)) continue;
+                const reader = new FileReader();
+                reader.onload = e => {
+                    images.push({ file, dataUrl: e.target.result });
+                    renderList();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function renderList() {
+            imageList.innerHTML = images.map((img, i) => `
+                <div class="image-item">
+                    <img src="${img.dataUrl}" alt="图片${i+1}">
+                    <div class="info"><div class="name">图片 ${i+1}</div><div class="page">第 ${i+1} 页</div></div>
+                    <button class="remove" onclick="removeImg(${i})">删除</button>
+                </div>
+            `).join('');
+            document.getElementById('convertBtn').disabled = images.length < 1;
+        }
+        
+        function removeImg(i) { images.splice(i, 1); renderList(); }
+        
+        async function convertToPdf() {
+            if (images.length < 1) return;
+            
+            const orientation = document.getElementById('orientation').value;
+            const quality = parseFloat(document.getElementById('quality').value);
+            
+            const PDFDocument = window.PDFLib;
+            const pdfDoc = await PDFDocument.create();
+            
+            for (let i = 0; i < images.length; i++) {
+                const imgData = images[i].dataUrl;
+                let format = 'jpeg';
+                if (imgData.startsWith('data:image/png')) format = 'png';
+                
+                let img;
+                if (format === 'png') {
+                    img = await pdfDoc.embedPng(imgData);
+                } else {
+                    img = await pdfDoc.embedJpg(imgData);
+                }
+                
+                let width = img.width;
+                let height = img.height;
+                
+                if (orientation === 'portrait') {
+                    if (width > height) { [width, height] = [height, width]; }
+                } else if (orientation === 'landscape') {
+                    if (height > width) { [width, height] = [height, width]; }
+                }
+                
+                const page = pdfDoc.addPage([width, height]);
+                page.drawImage(img, { x: 0, y: 0, width, height });
+            }
+            
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            window.pdfBlob = blob;
+            
+            document.getElementById('pageCount').textContent = images.length + ' 页';
+            document.getElementById('pdfSize').textContent = (blob.size / 1024).toFixed(1) + ' KB';
+            document.getElementById('result').classList.add('show');
+        }
+        
+        function downloadPdf() {
+            if (!window.pdfBlob) return;
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(window.pdfBlob);
+            link.download = 'images_' + Date.now() + '.pdf';
+            link.click();
+        }
+    </script>
+</body>
+</html>

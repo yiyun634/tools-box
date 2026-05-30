@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费BMI计算器 - 在线身体质量指数计算</title>
+    <meta name="description" content="免费的在线BMI计算器，计算身体质量指数，评估体重是否标准。支持公制和英制单位，简单易用。">
+    <meta name="keywords" content="BMI计算器,身体质量指数,BMI,体重指数,健康计算器,体重标准">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tools-box-nine.vercel.app/bmi-calculator">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "免费BMI计算器",
+        "description": "免费的在线BMI计算器，计算身体质量指数，评估体重是否标准。",
+        "url": "https://tools-box-nine.vercel.app/bmi-calculator",
+        "applicationCategory": "HealthApplication",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "BMI的正常范围是多少？", "acceptedAnswer": {"@type": "Answer", "text": "BMI 18.5-23.9 为正常范围，低于18.5为偏瘦，24-27.9为偏胖，高于28为肥胖。"}},
+            {"@type": "Question", "name": "BMI计算公式是什么？", "acceptedAnswer": {"@type": "Answer", "text": "BMI = 体重(kg) ÷ 身高(m)的平方。例如体重60公斤，身高1.7米，BMI = 60 ÷ 1.7² ≈ 20.8"}}
+        ]
+    }
+    </script>
+    
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .header{background:white;box-shadow:0 2px 10px rgba(0,0,0,0.08);padding:15px 0;position:sticky;top:0;z-index:100}
+        .nav{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+        .logo{font-size:1.3rem;font-weight:700;color:#667eea;text-decoration:none}
+        .nav-links{display:flex;gap:20px;flex-wrap:wrap}
+        .nav-links a{color:#64748b;text-decoration:none;font-weight:500}
+        .nav-links a:hover{color:#667eea}
+        .breadcrumb{max-width:1200px;margin:20px auto 0;padding:0 20px;font-size:0.9rem;color:#64748b}
+        .breadcrumb a{color:#667eea;text-decoration:none}
+        .container{max-width:900px;margin:0 auto;padding:30px 20px}
+        h1{font-size:2rem;color:#1e293b;margin-bottom:10px}
+        .subtitle{color:#64748b;margin-bottom:30px;font-size:1.1rem}
+        .tool-card{background:white;border-radius:16px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:30px}
+        
+        .unit-toggle{display:flex;gap:10px;margin-bottom:25px}
+        .unit-btn{padding:10px 25px;border:2px solid #e2e8f0;border-radius:8px;background:white;cursor:pointer;font-size:1rem;transition:all 0.3s}
+        .unit-btn:hover,.unit-btn.active{border-color:#667eea;background:#667eea;color:white}
+        
+        .input-group{margin-bottom:20px}
+        .input-group label{display:block;font-weight:600;color:#1e293b;margin-bottom:8px;font-size:1rem}
+        .input-group input{width:100%;padding:15px;border:2px solid #e2e8f0;border-radius:8px;font-size:1.2rem;text-align:center}
+        .input-group input:focus{outline:none;border-color:#667eea}
+        .input-group .unit{font-size:0.9rem;color:#64748b;margin-top:5px;text-align:center}
+        
+        .btn{background:#667eea;color:white;border:none;padding:15px 30px;border-radius:8px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:all 0.3s;width:100%}
+        .btn:hover{background:#5a6fd6}
+        
+        .result-card{margin-top:30px;padding:30px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:16px;color:white;text-align:center;display:none}
+        .result-card.show{display:block}
+        .result-card h3{font-size:1.2rem;margin-bottom:15px;opacity:0.9}
+        .bmi-value{font-size:4rem;font-weight:700;margin:20px 0}
+        .bmi-status{font-size:1.5rem;padding:10px 30px;background:rgba(255,255,255,0.2);border-radius:50px;display:inline-block;margin-bottom:25px}
+        .bmi-range{font-size:0.95rem;opacity:0.85}
+        
+        .bmi-scale{margin-top:30px;padding:20px;background:rgba(255,255,255,0.1);border-radius:12px}
+        .scale-bar{height:20px;border-radius:10px;background:linear-gradient(to right,#3498db,#2ecc71,#f1c40f,#e74c3c);margin:15px 0}
+        .scale-labels{display:flex;justify-content:space-between;font-size:0.85rem;opacity:0.9}
+        
+        .ad-placeholder{background:#f1f5f9;border:2px dashed #cbd5e1;border-radius:12px;padding:30px;color:#94a3b8;text-align:center;max-width:728px;margin:30px auto}
+        .content-section{background:white;border-radius:16px;padding:30px;margin:30px 0;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+        .content-section h2{color:#1e293b;margin-bottom:20px;font-size:1.5rem;border-bottom:3px solid #667eea;padding-bottom:10px}
+        .content-section h3{color:#334155;margin:25px 0 15px;font-size:1.2rem}
+        .content-section p{color:#475569;margin-bottom:15px;line-height:1.8}
+        .faq-item{margin-bottom:20px;border-bottom:1px solid #e2e8f0;padding-bottom:20px}
+        .faq-question{font-weight:600;color:#1e293b;margin-bottom:10px}
+        .faq-answer{color:#64748b;line-height:1.7}
+        .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px;margin-top:20px}
+        .related-tool{background:#f8fafc;padding:20px;border-radius:12px;text-decoration:none;color:inherit;transition:all 0.3s;border:2px solid transparent}
+        .related-tool:hover{border-color:#667eea;transform:translateY(-3px)}
+        .related-tool h4{color:#667eea;margin-bottom:5px}
+        .related-tool p{font-size:0.9rem;color:#64748b}
+        .footer{background:#1e293b;color:#94a3b8;text-align:center;padding:40px 20px;margin-top:60px}
+        .footer a{color:white;text-decoration:none}
+        .footer-links{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-bottom:20px}
+        @media(max-width:768px){h1{font-size:1.5rem}.bmi-value{font-size:3rem}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">🛠️ 免费工具箱</a>
+            <div class="nav-links"><a href="/">全部工具</a><a href="/#calc-tools">计算器</a></div>
+        </nav>
+    </header>
+    <div class="breadcrumb"><a href="/">首页</a> &gt; <a href="/#calc-tools">计算器</a> &gt; BMI计算器</div>
+    
+    <main class="container">
+        <h1>⚖️ 免费BMI计算器</h1>
+        <p class="subtitle">计算身体质量指数，评估体重是否标准</p>
+        
+        <div class="tool-card">
+            <div class="unit-toggle">
+                <button class="unit-btn active" id="metricBtn" onclick="setUnit('metric')">公制 (kg/cm)</button>
+                <button class="unit-btn" id="imperialBtn" onclick="setUnit('imperial')">英制 (lb/ft)</button>
+            </div>
+            
+            <div id="metricInputs">
+                <div class="input-group">
+                    <label>身高 (厘米)</label>
+                    <input type="number" id="heightCm" placeholder="例如：170" min="100" max="250">
+                </div>
+                <div class="input-group">
+                    <label>体重 (公斤)</label>
+                    <input type="number" id="weightKg" placeholder="例如：65" min="20" max="300">
+                </div>
+            </div>
+            
+            <div id="imperialInputs" style="display:none">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px">
+                    <div class="input-group">
+                        <label>身高 (英尺)</label>
+                        <input type="number" id="heightFt" placeholder="例如：5" min="3" max="8">
+                    </div>
+                    <div class="input-group">
+                        <label>身高 (英寸)</label>
+                        <input type="number" id="heightIn" placeholder="例如：7" min="0" max="11">
+                    </div>
+                </div>
+                <div class="input-group" style="margin-top:15px">
+                    <label>体重 (磅)</label>
+                    <input type="number" id="weightLb" placeholder="例如：150" min="44" max="660">
+                </div>
+            </div>
+            
+            <button class="btn" onclick="calculateBMI()">计算BMI</button>
+            
+            <div class="result-card" id="resultCard">
+                <h3>您的BMI指数</h3>
+                <div class="bmi-value" id="bmiValue">-</div>
+                <div class="bmi-status" id="bmiStatus">-</div>
+                <div class="bmi-range" id="bmiRange">-</div>
+                
+                <div class="bmi-scale">
+                    <div class="scale-bar"></div>
+                    <div class="scale-labels">
+                        <span>偏瘦&lt;18.5</span>
+                        <span>正常18.5-23.9</span>
+                        <span>偏胖24-27.9</span>
+                        <span>肥胖≥28</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ad-placeholder">Google AdSense 广告位 728x90</div>
+        
+        <section class="content-section">
+            <h2>📖 使用方法</h2>
+            <h3>第一步：选择单位</h3>
+            <p>点击切换公制或英制单位。公制适合中国使用习惯（厘米/公斤），英制适合美国使用习惯（英尺英寸/磅）。</p>
+            <h3>第二步：输入数据</h3>
+            <p>输入您的身高和体重数据。公制模式下输入厘米和公斤，英制模式下输入英尺、英寸和磅。</p>
+            <h3>第三步：获取结果</h3>
+            <p>点击"计算BMI"按钮，系统会立即显示您的BMI指数和健康状态评估。</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>💡 BMI说明</h2>
+            <h3>BMI是什么？</h3>
+            <p>BMI（Body Mass Index，身体质量指数）是国际上常用的衡量人体胖瘦程度以及是否健康的标准。计算公式为体重除以身高的平方。</p>
+            <h3>BMI参考范围</h3>
+            <p>• BMI &lt; 18.5：体重过轻</p>
+            <p>• BMI 18.5-23.9：体重正常</p>
+            <p>• BMI 24-27.9：体重超重</p>
+            <p>• BMI ≥ 28：肥胖</p>
+            <p style="color:#64748b;font-size:0.9rem;margin-top:15px">注：BMI标准可能因年龄、性别、种族而异。此计算器仅供参考，不能替代专业医疗建议。</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>❓ 常见问题</h2>
+            <div class="faq-item">
+                <div class="faq-question">BMI的正常范围是多少？</div>
+                <div class="faq-answer">BMI 18.5-23.9 为正常范围，低于18.5为偏瘦，24-27.9为偏胖，高于28为肥胖。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">BMI计算公式是什么？</div>
+                <div class="faq-answer">BMI = 体重(kg) ÷ 身高(m)的平方。例如体重60公斤，身高1.7米，BMI = 60 ÷ 1.7² ≈ 20.8</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">BMI适合所有人群吗？</div>
+                <div class="faq-answer">BMI是通用指标，但不适合运动员、老年人、孕妇等特殊人群。这些人群应咨询专业医生。</div>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>🔧 相关工具</h2>
+            <div class="related-tools">
+                <a href="/roi-calculator" class="related-tool"><h4>📈 ROI计算器</h4><p>计算投资回报率</p></a>
+                <a href="/compound-interest-calculator" class="related-tool"><h4>💰 复利计算器</h4><p>计算复利收益</p></a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-links"><a href="/">全部工具</a><a href="/bmi-calculator">BMI计算器</a><a href="/roi-calculator">ROI计算器</a></div>
+        <p>🛠️ 免费在线工具箱 - 所有工具永久免费</p>
+    </footer>
+    
+    <script>
+        let currentUnit = 'metric';
+        
+        function setUnit(unit) {
+            currentUnit = unit;
+            document.getElementById('metricBtn').classList.toggle('active', unit === 'metric');
+            document.getElementById('imperialBtn').classList.toggle('active', unit === 'imperial');
+            document.getElementById('metricInputs').style.display = unit === 'metric' ? 'block' : 'none';
+            document.getElementById('imperialInputs').style.display = unit === 'imperial' ? 'block' : 'none';
+            document.getElementById('resultCard').classList.remove('show');
+        }
+        
+        function calculateBMI() {
+            let bmi;
+            
+            if (currentUnit === 'metric') {
+                const heightCm = parseFloat(document.getElementById('heightCm').value);
+                const weightKg = parseFloat(document.getElementById('weightKg').value);
+                if (!heightCm || !weightKg) { alert('请输入完整数据'); return; }
+                const heightM = heightCm / 100;
+                bmi = weightKg / (heightM * heightM);
+            } else {
+                const heightFt = parseFloat(document.getElementById('heightFt').value) || 0;
+                const heightIn = parseFloat(document.getElementById('heightIn').value) || 0;
+                const weightLb = parseFloat(document.getElementById('weightLb').value);
+                if (!heightFt || !weightLb) { alert('请输入完整数据'); return; }
+                const totalInches = heightFt * 12 + heightIn;
+                const heightM = totalInches * 0.0254;
+                const weightKg = weightLb * 0.453592;
+                bmi = weightKg / (heightM * heightM);
+            }
+            
+            bmi = Math.max(10, Math.min(50, bmi));
+            
+            let status, statusColor;
+            if (bmi < 18.5) {
+                status = '体重过轻';
+            } else if (bmi < 24) {
+                status = '体重正常';
+            } else if (bmi < 28) {
+                status = '体重超重';
+            } else {
+                status = '肥胖';
+            }
+            
+            document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+            document.getElementById('bmiStatus').textContent = status;
+            document.getElementById('bmiRange').textContent = '正常范围: 18.5 - 23.9';
+            document.getElementById('resultCard').classList.add('show');
+        }
+    </script>
+</body>
+</html>

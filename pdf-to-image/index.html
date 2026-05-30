@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费PDF转图片工具 - 在线将PDF转换为PNG/JPG</title>
+    <meta name="description" content="免费的在线PDF转图片工具，将PDF文件的每一页转换为PNG或JPEG图片。浏览器本地处理，无需上传，完全免费。">
+    <meta name="keywords" content="PDF转图片,PDF转PNG,PDF转JPG,PDF转换,在线工具,免费转换">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tools-box-nine.vercel.app/pdf-to-image">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "免费PDF转图片工具",
+        "description": "免费的在线PDF转图片工具，将PDF页面转换为PNG或JPEG图片。",
+        "url": "https://tools-box-nine.vercel.app/pdf-to-image",
+        "applicationCategory": "UtilityApplication",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "可以将PDF的所有页面都转成图片吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以。PDF的每一页都会被转换成一张独立的图片，方便您查看和使用。"}},
+            {"@type": "Question", "name": "支持哪些输出格式？", "acceptedAnswer": {"@type": "Answer", "text": "支持输出为PNG和JPEG两种图片格式。PNG支持透明背景，JPEG体积更小。"}}
+        ]
+    }
+    </script>
+    
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .header{background:white;box-shadow:0 2px 10px rgba(0,0,0,0.08);padding:15px 0;position:sticky;top:0;z-index:100}
+        .nav{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+        .logo{font-size:1.3rem;font-weight:700;color:#667eea;text-decoration:none}
+        .nav-links{display:flex;gap:20px;flex-wrap:wrap}
+        .nav-links a{color:#64748b;text-decoration:none;font-weight:500}
+        .nav-links a:hover{color:#667eea}
+        .breadcrumb{max-width:1200px;margin:20px auto 0;padding:0 20px;font-size:0.9rem;color:#64748b}
+        .breadcrumb a{color:#667eea;text-decoration:none}
+        .container{max-width:900px;margin:0 auto;padding:30px 20px}
+        h1{font-size:2rem;color:#1e293b;margin-bottom:10px}
+        .subtitle{color:#64748b;margin-bottom:30px;font-size:1.1rem}
+        .tool-card{background:white;border-radius:16px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:30px}
+        
+        .drop-zone{border:3px dashed #cbd5e1;border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:all 0.3s;background:#f8fafc;margin-bottom:20px}
+        .drop-zone:hover{border-color:#667eea;background:#f0f4ff}
+        .drop-zone-icon{font-size:3rem;margin-bottom:10px}
+        .drop-zone h3{color:#1e293b;margin-bottom:8px}
+        .drop-zone p{color:#64748b;font-size:0.9rem}
+        .drop-zone input{display:none}
+        
+        .pdf-info{background:#f0fdf4;border-radius:12px;padding:20px;margin:20px 0;display:none}
+        .pdf-info.show{display:block}
+        .pdf-info h4{color:#166534;margin-bottom:15px}
+        .pdf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+        .pdf-stat{text-align:center;padding:12px;background:white;border-radius:8px}
+        .pdf-stat-value{font-size:1.2rem;font-weight:700;color:#16723b}
+        .pdf-stat-label{font-size:0.85rem;color:#64748b}
+        
+        .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:20px 0}
+        .control-group{display:flex;flex-direction:column;gap:8px}
+        .control-group label{font-weight:600;color:#1e293b;font-size:0.95rem}
+        .control-group input,.control-group select{padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem}
+        
+        .btn{background:#667eea;color:white;border:none;padding:15px 30px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s;width:100%}
+        .btn:hover{background:#5a6fd6}
+        .btn:disabled{background:#cbd5e1;cursor:not-allowed}
+        
+        .preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;margin:20px 0}
+        .preview-item{background:#f8fafc;border-radius:12px;padding:15px;text-align:center}
+        .preview-item img{max-width:100%;max-height:200px;border-radius:8px;border:2px solid #e2e8f0;margin-bottom:10px}
+        .preview-item .page-num{font-weight:600;color:#1e293b}
+        .preview-item .page-size{font-size:0.85rem;color:#64748b}
+        .preview-item .download-btn{background:#22c55e;color:white;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:0.9rem;margin-top:8px}
+        
+        .result{margin-top:25px;padding:20px;background:#f0fdf4;border-radius:12px;border:2px solid #86efac;display:none}
+        .result.show{display:block}
+        .result h4{color:#166534;margin-bottom:15px}
+        .download-all-btn{background:#22c55e;color:white;border:none;padding:15px 30px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%}
+        
+        .ad-placeholder{background:#f1f5f9;border:2px dashed #cbd5e1;border-radius:12px;padding:30px;color:#94a3b8;text-align:center;max-width:728px;margin:30px auto}
+        .content-section{background:white;border-radius:16px;padding:30px;margin:30px 0;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+        .content-section h2{color:#1e293b;margin-bottom:20px;font-size:1.5rem;border-bottom:3px solid #667eea;padding-bottom:10px}
+        .content-section h3{color:#334155;margin:25px 0 15px;font-size:1.2rem}
+        .content-section p{color:#475569;margin-bottom:15px;line-height:1.8}
+        .faq-item{margin-bottom:20px;border-bottom:1px solid #e2e8f0;padding-bottom:20px}
+        .faq-question{font-weight:600;color:#1e293b;margin-bottom:10px}
+        .faq-answer{color:#64748b;line-height:1.7}
+        .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px;margin-top:20px}
+        .related-tool{background:#f8fafc;padding:20px;border-radius:12px;text-decoration:none;color:inherit;transition:all 0.3s;border:2px solid transparent}
+        .related-tool:hover{border-color:#667eea;transform:translateY(-3px)}
+        .related-tool h4{color:#667eea;margin-bottom:5px}
+        .related-tool p{font-size:0.9rem;color:#64748b}
+        .footer{background:#1e293b;color:#94a3b8;text-align:center;padding:40px 20px;margin-top:60px}
+        .footer a{color:white;text-decoration:none}
+        .footer-links{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-bottom:20px}
+        @media(max-width:768px){h1{font-size:1.5rem}.pdf-stats{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">🛠️ 免费工具箱</a>
+            <div class="nav-links"><a href="/">全部工具</a><a href="/#pdf-tools">PDF工具</a></div>
+        </nav>
+    </header>
+    <div class="breadcrumb"><a href="/">首页</a> &gt; <a href="/#pdf-tools">PDF工具</a> &gt; PDF转图片</div>
+    
+    <main class="container">
+        <h1>🖼️ 免费PDF转图片工具</h1>
+        <p class="subtitle">将PDF的每一页转换为PNG或JPEG图片，完全免费</p>
+        
+        <div class="tool-card">
+            <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                <div class="drop-zone-icon">📄</div>
+                <h3>点击或拖拽PDF文件到这里</h3>
+                <p>支持 PDF 文件，每页将转换为一张图片</p>
+                <input type="file" id="fileInput" accept="application/pdf">
+            </div>
+            
+            <div class="pdf-info" id="pdfInfo">
+                <h4>📄 PDF文件信息</h4>
+                <div class="pdf-stats">
+                    <div class="pdf-stat"><div class="pdf-stat-value" id="pdfPages">-</div><div class="pdf-stat-label">页数</div></div>
+                    <div class="pdf-stat"><div class="pdf-stat-value" id="pdfSize2">-</div><div class="pdf-stat-label">文件大小</div></div>
+                    <div class="pdf-stat"><div class="pdf-stat-value" id="pdfName">-</div><div class="pdf-stat-label">文件名</div></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label>输出格式</label>
+                    <select id="outputFormat">
+                        <option value="png">PNG（推荐）</option>
+                        <option value="jpeg">JPEG（体积小）</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>图片质量</label>
+                    <select id="imgQuality">
+                        <option value="1">标准</option>
+                        <option value="2">高质量（2x）</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button class="btn" id="convertBtn" onclick="convertPdf()" disabled>转换为图片</button>
+            
+            <div class="preview-grid" id="previewGrid"></div>
+            
+            <div class="result" id="result">
+                <h4>✅ 转换完成！</h4>
+                <button class="download-all-btn" onclick="downloadAll()">📥 下载所有图片（ZIP）</button>
+            </div>
+        </div>
+        
+        <div class="ad-placeholder">Google AdSense 广告位 728x90</div>
+        
+        <section class="content-section">
+            <h2>📖 使用教程</h2>
+            <h3>第一步：上传PDF</h3>
+            <p>点击上传区域选择PDF文件，或直接拖拽PDF到该区域。上传后会显示PDF的基本信息，包括页数和大。</p>
+            <h3>第二步：设置输出格式</h3>
+            <p>选择输出图片格式：PNG支持透明背景适合设计使用，JPEG体积更小适合文档预览。</p>
+            <h3>第三步：预览和下载</h3>
+            <p>点击"转换为图片"按钮，系统会将PDF每一页渲染为图片。您可以逐个预览和下载，也可以一次性下载所有图片。</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>💡 使用场景</h2>
+            <h3>PPT素材提取</h3>
+            <p>将PPT导出的PDF中的幻灯片提取为图片，可以作为其他演示文稿的素材使用。</p>
+            <h3>文档预览</h3>
+            <p>将PDF页面转换为图片，方便在不支持PDF预览的环境中查看文档内容，如某些邮件客户端或社交平台。</p>
+            <h3>电子书插图</h3>
+            <p>从电子书PDF中提取图片素材，方便在其他地方使用或存档。</p>
+            <h3>合同快照</h3>
+            <p>将合同PDF的每一页转换为图片，便于快速浏览和存档备份。</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>❓ 常见问题</h2>
+            <div class="faq-item">
+                <div class="faq-question">可以将PDF的所有页面都转成图片吗？</div>
+                <div class="faq-answer">可以。PDF的每一页都会被转换成一张独立的图片，您可以在转换后预览所有页面并逐个下载。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">支持哪些输出格式？</div>
+                <div class="faq-answer">支持PNG和JPEG两种输出格式。PNG支持透明背景，JPEG文件体积更小。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">转换后的图片分辨率是多少？</div>
+                <div class="faq-answer">图片分辨率取决于PDF原始尺寸。标准质量为72 DPI，高质量为144 DPI（2倍）。</div>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <h2>🔧 相关工具</h2>
+            <div class="related-tools">
+                <a href="/image-to-pdf" class="related-tool"><h4>📄 图片转PDF</h4><p>将图片转为PDF</p></a>
+                <a href="/image-merge" class="related-tool"><h4>🖼️ 图片拼接</h4><p>合并多张图片</p></a>
+                <a href="/image-compress" class="related-tool"><h4>🗜️ 图片压缩</h4><p>压缩图片体积</p></a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-links"><a href="/">全部工具</a><a href="/pdf-to-image">PDF转图片</a><a href="/image-to-pdf">图片转PDF</a></div>
+        <p>🛠️ 免费在线工具箱 - 所有工具永久免费</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
+        let currentPdf = null;
+        let pageCount = 0;
+        let imageBlobs = [];
+        
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        
+        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
+        dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); handleFile(e.dataTransfer.files[0]); });
+        fileInput.addEventListener('change', e => { if(e.target.files[0]) handleFile(e.target.files[0]); });
+        
+        async function handleFile(file) {
+            if (file.type !== 'application/pdf') { alert('请上传PDF文件'); return; }
+            
+            const arrayBuffer = await file.arrayBuffer();
+            currentPdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            pageCount = currentPdf.numPages;
+            
+            document.getElementById('pdfPages').textContent = pageCount;
+            document.getElementById('pdfSize2').textContent = (file.size / 1024).toFixed(1) + ' KB';
+            document.getElementById('pdfName').textContent = file.name.substring(0, 20);
+            document.getElementById('pdfInfo').classList.add('show');
+            document.getElementById('convertBtn').disabled = false;
+        }
+        
+        async function convertPdf() {
+            const format = document.getElementById('outputFormat').value;
+            const quality = parseInt(document.getElementById('imgQuality').value);
+            imageBlobs = [];
+            
+            const grid = document.getElementById('previewGrid');
+            grid.innerHTML = '<p style="text-align:center;color:#64748b;grid-column:1/-1">正在转换...</p>';
+            
+            for (let i = 1; i <= pageCount; i++) {
+                const page = await currentPdf.getPage(i);
+                const scale = 1.5 * quality;
+                const viewport = page.getViewport({ scale });
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                const ctx = canvas.getContext('2d');
+                
+                await page.render({ canvasContext: ctx, viewport }).promise;
+                
+                const blob = await new Promise(resolve => 
+                    canvas.toBlob(resolve, format === 'jpeg' ? 'image/jpeg' : 'image/png', 0.92)
+                );
+                
+                imageBlobs.push(blob);
+                
+                const imgUrl = URL.createObjectURL(blob);
+                const item = document.createElement('div');
+                item.className = 'preview-item';
+                item.innerHTML = `
+                    <img src="${imgUrl}" alt="第${i}页">
+                    <div class="page-num">第 ${i} 页</div>
+                    <div class="page-size">${(blob.size/1024).toFixed(1)} KB</div>
+                    <button class="download-btn" onclick="downloadSingle(${i-1})">下载</button>
+                `;
+                grid.appendChild(item);
+            }
+            
+            document.getElementById('result').classList.add('show');
+        }
+        
+        function downloadSingle(index) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(imageBlobs[index]);
+            link.download = `page_${index+1}.png`;
+            link.click();
+        }
+        
+        async function downloadAll() {
+            alert('批量下载功能需要手动逐个下载，或使用浏览器右键保存所有图片');
+            imageBlobs.forEach((blob, i) => downloadSingle(i));
+        }
+    </script>
+</body>
+</html>
