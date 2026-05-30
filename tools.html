@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全部工具 - 免费效率工具箱</title>
+    <meta name="description" content="免费在线工具箱，提供图片压缩、图片拼接、图片裁剪、PDF转换、BMI计算器、ROI计算器等实用工具。浏览器本地处理，保护隐私。">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">🧰 <span>免费效率工具箱</span></a>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索工具、模板、教程...">
+                <button onclick="search()">🔍</button>
+            </div>
+            <nav class="nav">
+                <a href="/tools.html" class="active">🛠️ 工具</a>
+                <a href="/templates.html">📄 模板</a>
+                <a href="/guide.html">📚 教程</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">🛠️ 全部工具</h1>
+                <p class="page-desc">免费在线工具，无需上传到服务器，浏览器本地处理，保护您的隐私。</p>
+            </div>
+            
+            <div id="categories" class="categories">
+                <span class="category-tag active" data-category="all">全部工具</span>
+                <span class="category-tag" data-category="image">🖼️ 图片工具</span>
+                <span class="category-tag" data-category="pdf">📄 PDF工具</span>
+                <span class="category-tag" data-category="calc">🔢 计算器</span>
+            </div>
+            
+            <div id="tools-grid" class="card-grid">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>© 2026 免费效率工具箱 - 所有工具完全免费</p>
+        </div>
+    </footer>
+    
+    <script src="/js/data-loader.js"></script>
+    <script>
+        async function loadTools() {
+            const tools = await dataLoader.getTools();
+            const grid = document.getElementById('tools-grid');
+            
+            grid.innerHTML = tools.map(tool => `
+                <a href="${tool.path}" class="card tool-card">
+                    <div class="tool-icon">${tool.icon}</div>
+                    <div class="tool-info">
+                        <div class="tool-name">${tool.name}</div>
+                        <div class="tool-desc">${tool.description}</div>
+                    </div>
+                </a>
+            `).join('');
+        }
+        
+        function search() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query) window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+        }
+        
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') search();
+        });
+        
+        // 分类筛选
+        document.querySelectorAll('.category-tag').forEach(tag => {
+            tag.addEventListener('click', async () => {
+                document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                
+                const category = tag.dataset.category;
+                const tools = await dataLoader.getTools();
+                const filtered = category === 'all' ? tools : tools.filter(t => t.category === category);
+                
+                document.getElementById('tools-grid').innerHTML = filtered.map(tool => `
+                    <a href="${tool.path}" class="card tool-card">
+                        <div class="tool-icon">${tool.icon}</div>
+                        <div class="tool-info">
+                            <div class="tool-name">${tool.name}</div>
+                            <div class="tool-desc">${tool.description}</div>
+                        </div>
+                    </a>
+                `).join('');
+            });
+        });
+        
+        loadTools();
+    </script>
+</body>
+</html>

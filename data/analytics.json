@@ -1,0 +1,28 @@
+{
+    "version": "2.0",
+    "lastUpdated": "2026-05-30",
+    "analytics": {
+        "templates": {},
+        "tools": {},
+        "guides": {}
+    },
+    "favorites": {
+        "items": [],
+        "lastUpdated": null
+    },
+    "recentlyUsed": {
+        "items": [],
+        "maxItems": 10,
+        "lastUpdated": null
+    },
+    "hot": {
+        "hotTemplates": [],
+        "hotTools": [],
+        "hotGuides": [],
+        "lastUpdated": null
+    },
+    "searches": {
+        "total": 0,
+        "topQueries": []
+    }
+}

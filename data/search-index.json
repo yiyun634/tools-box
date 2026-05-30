@@ -1,0 +1,29 @@
+{
+    "version": "2.0",
+    "lastUpdated": "2026-05-30",
+    "index": [
+        {"type": "template", "id": "classic-resume", "name": "经典简历模板", "keywords": ["经典简历模板","传统简历","标准简历","通用简历","Word简历","免费下载","应届生简历","求职者简历","社招简历"], "path": "/templates/resume/classic", "category": "resume"},
+        {"type": "template", "id": "modern-resume", "name": "现代简约简历模板", "keywords": ["现代简历模板","简约简历","简洁简历","现代感简历","设计师简历","创意简历","互联网简历","新媒体简历"], "path": "/templates/resume/modern", "category": "resume"},
+        {"type": "template", "id": "developer-resume", "name": "程序员简历模板", "keywords": ["程序员简历模板","软件工程师简历","开发简历","Java简历","Python简历","前端简历","后端简历","全栈简历","IT简历","互联网技术简历"], "path": "/templates/resume/developer", "category": "resume"},
+        {"type": "template", "id": "fresh-graduate-resume", "name": "应届生简历模板", "keywords": ["应届生简历模板","毕业生简历","校园招聘简历","无经验简历","大学生简历","实习生简历","管培生简历","校招简历"], "path": "/templates/resume/fresh-graduate", "category": "resume"},
+        {"type": "template", "id": "pm-resume", "name": "产品经理简历模板", "keywords": ["产品经理简历模板","PM简历","互联网产品简历","产品运营简历","项目经理简历","BA简历","需求分析师简历"], "path": "/templates/resume/pm", "category": "resume"},
+        {"type": "template", "id": "monthly-budget", "name": "月度预算表", "keywords": ["月度预算表","月预算","家庭预算表","月度收支","月支出预算","月收入预算","财务规划表","每月预算"], "path": "/templates/budget/monthly", "category": "budget"},
+        {"type": "template", "id": "annual-budget", "name": "年度预算表", "keywords": ["年度预算表","年预算","年度财务规划","全年预算","年度收支计划","年度财务目标","12个月预算"], "path": "/templates/budget/annual", "category": "budget"},
+        {"type": "template", "id": "business-ppt", "name": "商务汇报PPT", "keywords": ["商务汇报PPT","工作汇报PPT","企业汇报模板","商务演示","工作总结PPT","述职报告PPT","月度汇报","年度汇报"], "path": "/templates/ppt/business", "category": "ppt"},
+        {"type": "template", "id": "agile-plan", "name": "敏捷开发计划", "keywords": ["敏捷开发计划","Agile计划","Sprint计划","Scrum计划","敏捷项目管理","看板管理","冲刺计划","迭代计划"], "path": "/templates/project-plan/agile", "category": "project-plan"},
+        {"type": "template", "id": "daily-report-template", "name": "工作日报模板", "keywords": ["工作日报模板","日报表","每日工作记录","日常工作表","上班日报","每日总结","日报格式"], "path": "/templates/daily-report/daily", "category": "daily-report"},
+        {"type": "template", "id": "company-okr", "name": "企业OKR模板", "keywords": ["OKR模板","企业OKR","公司OKR","组织OKR","OKR制定表","目标管理模板","KPI OKR","战略目标"], "path": "/templates/okr/company", "category": "okr"},
+        {"type": "template", "id": "standard-minutes", "name": "标准会议纪要", "keywords": ["会议纪要模板","会议记录模板","标准会议纪要","通用会议记录","周会纪要","例会纪要","会议记录表"], "path": "/templates/meeting-minutes/standard", "category": "meeting-minutes"},
+        {"type": "template", "id": "crm-sales-followup", "name": "CRM销售跟进表", "keywords": ["CRM销售跟进表","客户跟进表","客户管理表","销售CRM","客户档案表","商机跟进表","客户管理"], "path": "/templates/sales-followup/crm", "category": "sales-followup"},
+        {"type": "template", "id": "expense-tracking-simple", "name": "简洁记账本", "keywords": ["个人记账表","记账本模板","简洁记账表","日常开支记录","收支记录表","个人理财表","零花钱记账"], "path": "/templates/expense-tracking/simple", "category": "expense-tracking"},
+        {"type": "tool", "id": "image-compress", "name": "图片压缩", "keywords": ["图片压缩","在线压缩","JPEG压缩","PNG压缩","WebP压缩","无损压缩","图片优化","照片压缩"], "path": "/image-compress", "category": "image"},
+        {"type": "tool", "id": "image-merge", "name": "图片拼接", "keywords": ["图片拼接","图片合并","照片拼接","多图合并","横拼","竖拼"], "path": "/image-merge", "category": "image"},
+        {"type": "tool", "id": "image-crop", "name": "图片裁剪", "keywords": ["图片裁剪","裁剪图片","调整尺寸","图片比例","裁剪工具"], "path": "/image-crop", "category": "image"},
+        {"type": "tool", "id": "bmi-calculator", "name": "BMI计算器", "keywords": ["BMI计算器","身体质量指数","BMI","体重指数","健康体重"], "path": "/bmi-calculator", "category": "calc"},
+        {"type": "guide", "id": "resume-writing", "name": "如何写简历", "keywords": ["写简历","简历技巧","简历模板","求职","面试"], "path": "/guide/resume-writing", "category": "career"},
+        {"type": "guide", "id": "budget-making", "name": "如何制作预算表", "keywords": ["制作预算表","预算表教程","财务规划","开支管理","理财入门"], "path": "/guide/budget-making", "category": "finance"},
+        {"type": "guide", "id": "okr-guide", "name": "如何制定OKR", "keywords": ["OKR制定","目标管理","OKR教程","OKR写法","目标设定"], "path": "/guide/okr-guide", "category": "productivity"},
+        {"type": "guide", "id": "ppt-design", "name": "PPT设计教程", "keywords": ["PPT设计","PPT制作","演示文稿设计","PPT技巧","PPT教程"], "path": "/guide/ppt-design", "category": "productivity"},
+        {"type": "guide", "id": "time-management", "name": "时间管理技巧", "keywords": ["时间管理","效率提升","时间管理方法","日程管理","提高效率"], "path": "/guide/time-management", "category": "productivity"}
+    ]
+}

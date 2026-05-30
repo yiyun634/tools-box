@@ -1,0 +1,377 @@
+{
+    "version": "2.0",
+    "lastUpdated": "2026-05-30",
+    "categories": [
+        {"id": "career", "name": "职场发展", "icon": "💼"},
+        {"id": "finance", "name": "财务管理", "icon": "💰"},
+        {"id": "productivity", "name": "效率提升", "icon": "⚡"},
+        {"id": "life", "name": "生活技巧", "icon": "🏠"}
+    ],
+    "guides": [
+        {
+            "id": "resume-writing",
+            "name": "如何写简历",
+            "category": "career",
+            "path": "/guide/resume-writing",
+            "icon": "📝",
+            "keywords": ["写简历", "简历技巧", "简历模板", "求职", "面试"],
+            "seo": {
+                "title": "如何写简历 - 简历写作完全指南",
+                "description": "专业简历写作教程，包含简历结构、内容技巧、常见错误、量化方法。附带简历模板下载。"
+            },
+            "relatedTemplates": ["classic-resume", "modern-resume", "fresh-graduate-resume", "developer-resume", "pm-resume"],
+            "contentWords": 3200
+        },
+        {
+            "id": "interview-skills",
+            "name": "面试技巧大全",
+            "category": "career",
+            "path": "/guide/interview-skills",
+            "icon": "🎯",
+            "keywords": ["面试技巧", "面试准备", "面试问题", "面试注意事项", "面试话术"],
+            "seo": {
+                "title": "面试技巧大全 - 求职面试必备指南",
+                "description": "全面提升面试能力的技巧指南，包括面试准备、常见问题回答、肢体语言、薪资谈判等。"
+            },
+            "relatedTemplates": ["classic-resume", "pm-resume", "sales-resume"],
+            "contentWords": 2800
+        },
+        {
+            "id": "career-planning",
+            "name": "职业规划指南",
+            "category": "career",
+            "path": "/guide/career-planning",
+            "icon": "🗺️",
+            "keywords": ["职业规划", "职业发展", "职场晋升", "职业目标", "职业转型"],
+            "seo": {
+                "title": "职业规划指南 - 如何规划职业发展路径",
+                "description": "系统讲解职业规划方法论，包括自我评估、职业目标设定、能力提升、晋升策略等。"
+            },
+            "relatedTemplates": ["classic-resume", "accountant-resume"],
+            "contentWords": 2500
+        },
+        {
+            "id": "salary-negotiation",
+            "name": "薪资谈判技巧",
+            "category": "career",
+            "path": "/guide/salary-negotiation",
+            "icon": "💵",
+            "keywords": ["薪资谈判", "谈薪资", "工资谈判", "薪酬谈判", "如何加薪"],
+            "seo": {
+                "title": "薪资谈判技巧 - 职场加薪必备指南",
+                "description": "实用的薪资谈判技巧，帮助你在面试、年度评估、跳槽时争取到更好的薪酬待遇。"
+            },
+            "relatedTemplates": ["classic-resume", "senior-resume"],
+            "contentWords": 2200
+        },
+        {
+            "id": "office-communication",
+            "name": "职场沟通技巧",
+            "category": "career",
+            "path": "/guide/office-communication",
+            "icon": "🗣️",
+            "keywords": ["职场沟通", "办公室沟通", "向上沟通", "跨部门沟通", "沟通技巧"],
+            "seo": {
+                "title": "职场沟通技巧 - 提升职场人际关系的秘诀",
+                "description": "职场沟通完全指南，涵盖向上沟通、跨部门协作、下属管理、客户沟通等场景。"
+            },
+            "relatedTemplates": ["standard-minutes", "project-meeting-minutes"],
+            "contentWords": 2400
+        },
+        {
+            "id": "budget-making",
+            "name": "如何制作预算表",
+            "category": "finance",
+            "path": "/guide/budget-making",
+            "icon": "📊",
+            "keywords": ["制作预算表", "预算表教程", "财务规划", "开支管理", "理财入门"],
+            "seo": {
+                "title": "如何制作预算表 - Excel预算表制作教程",
+                "description": "手把手教你制作家庭预算表，包括收入分类、支出分类、预算分配、月末复盘。"
+            },
+            "relatedTemplates": ["monthly-budget", "annual-budget", "household-budget", "student-budget"],
+            "contentWords": 3000
+        },
+        {
+            "id": "personal-finance",
+            "name": "个人理财入门",
+            "category": "finance",
+            "path": "/guide/personal-finance",
+            "icon": "💰",
+            "keywords": ["个人理财", "理财入门", "储蓄方法", "投资入门", "财务自由"],
+            "seo": {
+                "title": "个人理财入门 - 从零开始的理财指南",
+                "description": "个人理财基础教程，涵盖储蓄、投资、保险、养老规划，帮你建立正确的理财观念。"
+            },
+            "relatedTemplates": ["expense-tracking-simple", "household-expense", "investment-budget"],
+            "contentWords": 3500
+        },
+        {
+            "id": "tax-planning",
+            "name": "合理避税指南",
+            "category": "finance",
+            "path": "/guide/tax-planning",
+            "icon": "🏛️",
+            "keywords": ["合理避税", "税务筹划", "个税筹划", "节税技巧", "税务规划"],
+            "seo": {
+                "title": "合理避税指南 - 合法税务筹划教程",
+                "description": "个人税务筹划指南，介绍合法的节税方法和税务优惠政策，帮你合法降低税负。"
+            },
+            "relatedTemplates": ["annual-budget", "household-expense"],
+            "contentWords": 2600
+        },
+        {
+            "id": "investment-basics",
+            "name": "投资理财基础",
+            "category": "finance",
+            "path": "/guide/investment-basics",
+            "icon": "📈",
+            "keywords": ["投资理财", "基金入门", "股票入门", "理财知识", "资产配置"],
+            "seo": {
+                "title": "投资理财基础 - 入门级投资知识教程",
+                "description": "投资理财基础知识教程，包括基金、股票、债券、理财产品介绍，适合投资新手。"
+            },
+            "relatedTemplates": ["investment-budget", "annual-budget"],
+            "contentWords": 3200
+        },
+        {
+            "id": "debt-management",
+            "name": "债务管理指南",
+            "category": "finance",
+            "path": "/guide/debt-management",
+            "icon": "🔒",
+            "keywords": ["债务管理", "还债技巧", "信用卡管理", "贷款管理", "摆脱债务"],
+            "seo": {
+                "title": "债务管理指南 - 如何管理并还清债务",
+                "description": "债务管理实用指南，包括信用卡管理、贷款还款策略、如何制定还债计划。"
+            },
+            "relatedTemplates": ["monthly-budget", "expense-tracking-simple"],
+            "contentWords": 2300
+        },
+        {
+            "id": "okr-guide",
+            "name": "如何制定OKR",
+            "category": "productivity",
+            "path": "/guide/okr-guide",
+            "icon": "🎯",
+            "keywords": ["OKR制定", "目标管理", "OKR教程", "OKR写法", "目标设定"],
+            "seo": {
+                "title": "如何制定OKR - OKR目标管理完全指南",
+                "description": "OKR目标管理系统教程，包括OKR概念、制定方法、对齐方法、评分规则，附OKR模板下载。"
+            },
+            "relatedTemplates": ["company-okr", "department-okr", "personal-okr", "team-okr"],
+            "contentWords": 3500
+        },
+        {
+            "id": "time-management",
+            "name": "时间管理技巧",
+            "category": "productivity",
+            "path": "/guide/time-management",
+            "icon": "⏰",
+            "keywords": ["时间管理", "效率提升", "时间管理方法", "日程管理", "提高效率"],
+            "seo": {
+                "title": "时间管理技巧 - 提升工作效率的秘诀",
+                "description": "实用时间管理技巧，包括GTD、番茄工作法、时间块、优先级管理等方法。"
+            },
+            "relatedTemplates": ["daily-report-template", "weekly-report-template"],
+            "contentWords": 2800
+        },
+        {
+            "id": "meeting-efficiency",
+            "name": "如何开高效会议",
+            "category": "productivity",
+            "path": "/guide/meeting-efficiency",
+            "icon": "📅",
+            "keywords": ["高效会议", "会议技巧", "会议管理", "开会方法", "会议效率"],
+            "seo": {
+                "title": "如何开高效会议 - 会议管理完全指南",
+                "description": "高效会议技巧指南，包括会议准备、会议主持、会议纪要、会议跟进的完整方法论。"
+            },
+            "relatedTemplates": ["standard-minutes", "executive-minutes", "meeting-ppt"],
+            "contentWords": 2600
+        },
+        {
+            "id": "ppt-design",
+            "name": "PPT设计教程",
+            "category": "productivity",
+            "path": "/guide/ppt-design",
+            "icon": "📑",
+            "keywords": ["PPT设计", "PPT制作", "演示文稿设计", "PPT技巧", "PPT教程"],
+            "seo": {
+                "title": "PPT设计教程 - 做出专业演示文稿的指南",
+                "description": "PPT设计完整教程，包括PPT结构、配色、排版、动画、演讲技巧，附PPT模板下载。"
+            },
+            "relatedTemplates": ["business-ppt", "meeting-ppt", "plan-ppt", "training-ppt", "product-ppt"],
+            "contentWords": 4000
+        },
+        {
+            "id": "email-writing",
+            "name": "商务邮件写作",
+            "category": "productivity",
+            "path": "/guide/email-writing",
+            "icon": "📧",
+            "keywords": ["商务邮件", "邮件写作", "邮件格式", "邮件礼仪", "工作邮件"],
+            "seo": {
+                "title": "商务邮件写作指南 - 职场邮件沟通技巧",
+                "description": "商务邮件写作教程，包括邮件结构、措辞技巧、发送礼仪、常见错误，帮助你提升邮件沟通效率。"
+            },
+            "relatedTemplates": ["standard-minutes"],
+            "contentWords": 2200
+        },
+        {
+            "id": "project-planning",
+            "name": "如何做项目计划",
+            "category": "productivity",
+            "path": "/guide/project-planning",
+            "icon": "📋",
+            "keywords": ["项目计划", "项目管理", "计划制定", "甘特图", "里程碑"],
+            "seo": {
+                "title": "如何做项目计划 - 项目管理完整指南",
+                "description": "项目计划制定教程，包括项目目标、任务分解、进度安排、资源分配、风险管理。"
+            },
+            "relatedTemplates": ["agile-plan", "waterfall-plan", "startup-plan", "product-plan", "it-plan", "rnd-plan"],
+            "contentWords": 3400
+        },
+        {
+            "id": "daily-report-guide",
+            "name": "工作日报撰写指南",
+            "category": "productivity",
+            "path": "/guide/daily-report-guide",
+            "icon": "📅",
+            "keywords": ["工作日报", "日报撰写", "周报写法", "工作总结", "工作记录"],
+            "seo": {
+                "title": "工作日报撰写指南 - 职场日报周报写法教程",
+                "description": "工作日报撰写技巧，包括日报结构、内容选择、表达方法，帮你更好地记录和展示工作成果。"
+            },
+            "relatedTemplates": ["daily-report-template", "weekly-report-template", "monthly-report-template", "project-weekly-report"],
+            "contentWords": 2500
+        },
+        {
+            "id": "data-analysis",
+            "name": "数据分析入门",
+            "category": "productivity",
+            "path": "/guide/data-analysis",
+            "icon": "📊",
+            "keywords": ["数据分析", "数据分析方法", "数据可视化", "Excel数据分析", "数据分析技巧"],
+            "seo": {
+                "title": "数据分析入门 - Excel数据分析基础教程",
+                "description": "数据分析基础教程，包括数据清洗、数据统计、数据可视化、图表制作，适合需要处理数据的职场人。"
+            },
+            "relatedTemplates": ["monthly-budget", "project-budget", "sales-daily-report", "operations-daily-report"],
+            "contentWords": 3200
+        },
+        {
+            "id": "wedding-planning",
+            "name": "婚礼筹备攻略",
+            "category": "life",
+            "path": "/guide/wedding-planning",
+            "icon": "💒",
+            "keywords": ["婚礼筹备", "婚礼攻略", "婚礼规划", "结婚准备", "婚礼清单"],
+            "seo": {
+                "title": "婚礼筹备攻略 - 从订婚到蜜月的完整指南",
+                "description": "婚礼筹备完整攻略，包括场地预订、宾客邀请、婚礼策划、婚纱摄影、婚宴安排等全流程。"
+            },
+            "relatedTemplates": ["wedding-budget", "household-budget"],
+            "contentWords": 3800
+        },
+        {
+            "id": "travel-planning",
+            "name": "旅行规划指南",
+            "category": "life",
+            "path": "/guide/travel-planning",
+            "icon": "✈️",
+            "keywords": ["旅行规划", "旅游攻略", "出行准备", "自由行规划", "旅行清单"],
+            "seo": {
+                "title": "旅行规划指南 - 自助旅行完整攻略",
+                "description": "旅行规划教程，包括目的地选择、行程安排、预算控制、行李准备、保险购买等实用技巧。"
+            },
+            "relatedTemplates": ["travel-budget", "monthly-budget"],
+            "contentWords": 2900
+        },
+        {
+            "id": "home-renovation",
+            "name": "装修完全攻略",
+            "category": "life",
+            "path": "/guide/home-renovation",
+            "icon": "🏠",
+            "keywords": ["装修攻略", "房屋装修", "装修流程", "装修预算", "装修注意事项"],
+            "seo": {
+                "title": "装修完全攻略 - 从设计到验收的完整指南",
+                "description": "房屋装修完整攻略，包括设计阶段、施工阶段、验收阶段的注意事项和避坑指南。"
+            },
+            "relatedTemplates": ["renovation-budget", "household-budget"],
+            "contentWords": 3600
+        },
+        {
+            "id": "study-planning",
+            "name": "学习计划制定",
+            "category": "life",
+            "path": "/guide/study-planning",
+            "icon": "📚",
+            "keywords": ["学习计划", "自我提升", "学习方法", "学习规划", "技能提升"],
+            "seo": {
+                "title": "学习计划制定 - 如何规划自我提升路径",
+                "description": "学习计划制定教程，包括目标设定、资源规划、时间管理、学习复盘，帮你实现持续自我提升。"
+            },
+            "relatedTemplates": ["daily-report-template", "personal-okr"],
+            "contentWords": 2400
+        },
+        {
+            "id": "healthy-living",
+            "name": "健康生活指南",
+            "category": "life",
+            "path": "/guide/healthy-living",
+            "icon": "🌿",
+            "keywords": ["健康生活", "健康养生", "生活习惯", "健康饮食", "作息规划"],
+            "seo": {
+                "title": "健康生活指南 - 养成健康生活习惯",
+                "description": "健康生活指南，包括饮食健康、运动计划、作息调整、心理健康，帮你建立健康生活方式。"
+            },
+            "relatedTemplates": ["monthly-budget", "expense-tracking-simple"],
+            "contentWords": 2700
+        },
+        {
+            "id": "sales-guide",
+            "name": "销售技巧大全",
+            "category": "career",
+            "path": "/guide/sales-guide",
+            "icon": "📈",
+            "keywords": ["销售技巧", "销售方法", "销售话术", "客户开发", "销售跟进"],
+            "seo": {
+                "title": "销售技巧大全 - 提升销售业绩的实战指南",
+                "description": "系统销售技巧教程，包括客户开发、需求挖掘、方案呈现、异议处理、成交技巧、售后跟进。"
+            },
+            "relatedTemplates": ["crm-sales-followup", "sales-followup-template", "sales-okr", "potential-customer-table", "contract-tracking-table"],
+            "contentWords": 4000
+        },
+        {
+            "id": "customer-service",
+            "name": "客服沟通技巧",
+            "category": "career",
+            "path": "/guide/customer-service",
+            "icon": "🎧",
+            "keywords": ["客服技巧", "客服沟通", "售后服务", "客户投诉处理", "客服话术"],
+            "seo": {
+                "title": "客服沟通技巧 - 提升客户满意度的秘诀",
+                "description": "客服沟通技巧教程，包括积极倾听、情绪管理、投诉处理、满意度提升、复购转化等核心技能。"
+            },
+            "relatedTemplates": ["customer-service-report"],
+            "contentWords": 2800
+        },
+        {
+            "id": "team-management",
+            "name": "团队管理指南",
+            "category": "career",
+            "path": "/guide/team-management",
+            "icon": "👥",
+            "keywords": ["团队管理", "管理者指南", "团队领导", "人员管理", "目标管理"],
+            "seo": {
+                "title": "团队管理指南 - 从员工到管理者的成长指南",
+                "description": "团队管理实用指南，包括角色转换、目标设定、任务分配、绩效评估、团队激励、冲突处理等。"
+            },
+            "relatedTemplates": ["company-okr", "department-okr", "team-okr", "project-weekly-report"],
+            "contentWords": 3500
+        }
+    ],
+    "totalGuides": 26
+}

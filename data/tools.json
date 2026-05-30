@@ -1,0 +1,132 @@
+{
+    "version": "2.0",
+    "lastUpdated": "2026-05-30",
+    "categories": [
+        {"id": "image", "name": "图片工具", "icon": "🖼️"},
+        {"id": "pdf", "name": "PDF工具", "icon": "📄"},
+        {"id": "calc", "name": "计算器", "icon": "🔢"}
+    ],
+    "tools": [
+        {
+            "id": "image-compress",
+            "name": "图片压缩",
+            "nameEn": "Image Compressor",
+            "category": "image",
+            "icon": "🗜️",
+            "path": "/image-compress",
+            "description": "在线压缩图片，减小文件大小，支持JPEG/PNG/WebP",
+            "keywords": ["图片压缩", "在线压缩", "JPEG压缩", "PNG压缩", "WebP压缩", "无损压缩", "图片优化", "照片压缩"],
+            "seo": {
+                "title": "免费图片压缩工具 - 在线无损压缩JPEG/PNG/WebP",
+                "description": "完全免费的在线图片压缩工具，无需上传到服务器，浏览器本地处理。支持JPEG、PNG、WebP格式，保护隐私。"
+            },
+            "stats": {"views": 0, "uses": 0, "rating": 0}
+        },
+        {
+            "id": "image-merge",
+            "name": "图片拼接",
+            "nameEn": "Image Merger",
+            "category": "image",
+            "icon": "🖼️",
+            "path": "/image-merge",
+            "description": "多张图片合并成一张，支持横拼/竖拼",
+            "keywords": ["图片拼接", "图片合并", "照片拼接", "多图合并", "横拼", "竖拼"],
+            "seo": {
+                "title": "免费图片拼接工具 - 在线多图合并工具",
+                "description": "免费在线图片拼接工具，支持多张图片横排或竖排拼接。浏览器本地处理，无上传隐私风险。"
+            },
+            "stats": {"views": 0, "uses": 0, "rating": 0}
+        },
+        {
+            "id": "image-crop",
+            "name": "图片裁剪",
+            "nameEn": "Image Cropper",
+            "category": "image",
+            "icon": "✂️",
+            "path": "/image-crop",
+            "description": "裁剪图片，调整尺寸和比例",
+            "keywords": ["图片裁剪", "裁剪图片", "调整尺寸", "图片比例", "裁剪工具"],
+            "seo": {
+                "title": "免费图片裁剪工具 - 在线调整图片尺寸和比例",
+                "description": "在线图片裁剪工具，拖拽调整裁剪区域，支持多种预设比例。浏览器本地处理，无需上传。"
+            },
+            "stats": {"views": 0, "uses": 0, "rating": 0}
+        },
+        {
+            "id": "image-to-pdf",
+            "name": "图片转PDF",
+            "nameEn": "Image to PDF",
+            "category": "image",
+            "icon": "📄",
+            "path": "/image-to-pdf",
+            "description": "将多张图片合并为单个PDF文件",
+            "keywords": ["图片转PDF", "图片转PDF工具", "合并PDF", "多图转PDF"],
+            "seo": {
+                "title": "免费图片转PDF工具 - 在线多图合并PDF",
+                "description": "免费在线图片转PDF工具，将多张图片合并为一个PDF文件。浏览器本地处理，无隐私风险。"
+            },
+            "stats": {"views": 0, "uses": 0, "rating": 0}
+        },
+        {
+            "id": "pdf-to-image",
+            "name": "PDF转图片",
+            "nameEn": "PDF to Image",
+            "category": "pdf",
+            "icon": "🖼️",
+            "path": "/pdf-to-image",
+            "description": "将PDF文件转换为图片",
+            "keywords": ["PDF转图片", "PDF转图片工具", "PDF转PNG", "PDF转JPEG"],
+            "seo": {
+                "title": "免费PDF转图片工具 - 在线PDF转PNG/JPEG",
+                "description": "免费在线PDF转图片工具，支持将PDF页面转换为PNG或JPEG图片。浏览器本地处理，快速便捷。"
+            },
+            "stats": {"views": 0, "uses": 0, "rating": 0}
+        },
+        {
+            "id": "bmi-calculator",
+            "name": "BMI计算器",
+            "nameEn": "BMI Calculator",
+            "category": "calc",
+            "icon": "⚖️",
+            "path": "/bmi-calculator",
+            "description": "计算身体质量指数BMI，评估健康体重",
+            "keywords": ["BMI计算器", "身体质量指数", "BMI", "体重指数", "健康体重"],
+            "seo": {
+                "title": "免费BMI计算器 - 在线身体质量指数计算",
+                "description": "免费BMI计算器，输入身高体重计算身体质量指数，评估体重是否健康，附带BMI标准对照表。"
+            },
+            "stats": {"views": 0, "uses": 0, "rating": 0}
+        },
+        {
+            "id": "roi-calculator",
+            "name": "ROI计算器",
+            "nameEn": "ROI Calculator",
+            "category": "calc",
+            "icon": "📈",
+            "path": "/roi-calculator",
+            "description": "计算投资回报率，评估投资收益",
+            "keywords": ["ROI计算器", "投资回报率", "投资收益率", "ROI", "投资回报"],
+            "seo": {
+                "title": "免费ROI计算器 - 在线投资回报率计算",
+                "description": "免费投资回报率计算器，计算投资收益和回报周期，帮助评估投资项目的盈利能力和效率。"
+            },
+            "stats": {"views": 0, "uses": 0, "rating": 0}
+        },
+        {
+            "id": "compound-interest-calculator",
+            "name": "复利计算器",
+            "nameEn": "Compound Interest Calculator",
+            "category": "calc",
+            "icon": "💰",
+            "path": "/compound-interest-calculator",
+            "description": "计算复利增长，演示时间价值",
+            "keywords": ["复利计算器", "复利", "复利计算", "投资收益", "复利增长"],
+            "seo": {
+                "title": "免费复利计算器 - 在线复利收益计算",
+                "description": "免费复利计算器，计算投资复利增长效果，展示时间和利率对收益的影响，帮你理解复利的威力。"
+            },
+            "stats": {"views": 0, "uses": 0, "rating": 0}
+        }
+    ],
+    "total": 8
+}

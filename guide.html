@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全部教程 - 免费效率工具箱</title>
+    <meta name="description" content="免费学习简历写作、预算表制作、OKR制定、PPT设计、时间管理等实用技能。配套模板下载，边学边用。">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">🧰 <span>免费效率工具箱</span></a>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索工具、模板、教程...">
+                <button onclick="search()">🔍</button>
+            </div>
+            <nav class="nav">
+                <a href="/tools.html">🛠️ 工具</a>
+                <a href="/templates.html">📄 模板</a>
+                <a href="/guide.html" class="active">📚 教程</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">📚 全部教程</h1>
+                <p class="page-desc">免费学习职场技能，配套模板下载，边学边用，快速提升效率。</p>
+            </div>
+            
+            <div id="guide-categories" class="categories"></div>
+            
+            <div id="guides-grid" class="card-grid">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>© 2026 免费效率工具箱 - 所有教程完全免费</p>
+        </div>
+    </footer>
+    
+    <script src="/js/data-loader.js"></script>
+    <script>
+        async function loadGuides() {
+            const guides = await dataLoader.getGuides();
+            const data = await dataLoader.loadJSON('guides.json');
+            const categories = data?.categories || [];
+            
+            // 渲染分类
+            const categoriesContainer = document.getElementById('guide-categories');
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeCategory = urlParams.get('category') || 'all';
+            
+            categoriesContainer.innerHTML = `
+                <a href="/guide.html" class="category-tag ${activeCategory === 'all' ? 'active' : ''}" data-category="all">全部教程</a>
+                ${categories.map(cat => `
+                    <a href="/guide.html?category=${cat.id}" class="category-tag ${activeCategory === cat.id ? 'active' : ''}" data-category="${cat.id}">${cat.icon} ${cat.name}</a>
+                `).join('')}
+            `;
+            
+            // 渲染教程
+            const filtered = activeCategory === 'all' ? guides : guides.filter(g => g.category === activeCategory);
+            const grid = document.getElementById('guides-grid');
+            
+            grid.innerHTML = filtered.map(guide => `
+                <a href="${guide.path}" class="card">
+                    <div class="card-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)">
+                        ${guide.icon || '📚'}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">${guide.name}</div>
+                        <div class="card-desc">${guide.seo?.description?.substring(0, 80) || ''}...</div>
+                        <div class="card-tags">
+                            <span class="card-tag">${guide.contentWords || 0}字</span>
+                            <span class="card-tag">${guide.category}</span>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+        
+        function search() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query) window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+        }
+        
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') search();
+        });
+        
+        loadGuides();
+    </script>
+</body>
+</html>

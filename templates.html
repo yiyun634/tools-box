@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全部模板 - 免费效率工具箱</title>
+    <meta name="description" content="免费下载简历模板、Excel预算表、PPT模板、项目计划书、OKR模板等。所有模板完全免费，可直接编辑使用。">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">🧰 <span>免费效率工具箱</span></a>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索工具、模板、教程...">
+                <button onclick="search()">🔍</button>
+            </div>
+            <nav class="nav">
+                <a href="/tools.html">🛠️ 工具</a>
+                <a href="/templates.html" class="active">📄 模板</a>
+                <a href="/guide.html">📚 教程</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">📄 全部模板</h1>
+                <p class="page-desc">免费下载各类实用模板，Word/Excel/PPT格式，可直接编辑使用。所有模板完全免费。</p>
+            </div>
+            
+            <div id="categories" class="categories"></div>
+            
+            <div id="templates-grid" class="card-grid">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>© 2026 免费效率工具箱 - 所有模板完全免费</p>
+        </div>
+    </footer>
+    
+    <script src="/js/data-loader.js"></script>
+    <script>
+        async function loadTemplates() {
+            const [templates, categories] = await Promise.all([
+                dataLoader.getTemplates(),
+                dataLoader.getCategories()
+            ]);
+            
+            // 渲染分类
+            const categoriesContainer = document.getElementById('categories');
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeCategory = urlParams.get('category') || 'all';
+            
+            categoriesContainer.innerHTML = `
+                <a href="/templates.html" class="category-tag ${activeCategory === 'all' ? 'active' : ''}" data-category="all">全部模板</a>
+                ${categories.map(cat => `
+                    <a href="/templates.html?category=${cat.id}" class="category-tag ${activeCategory === cat.id ? 'active' : ''}" data-category="${cat.id}">${cat.icon} ${cat.name}</a>
+                `).join('')}
+            `;
+            
+            // 渲染模板
+            const filtered = activeCategory === 'all' ? templates : templates.filter(t => t.category === activeCategory);
+            const grid = document.getElementById('templates-grid');
+            
+            grid.innerHTML = filtered.map(template => `
+                <a href="${template.path}" class="card">
+                    <div class="card-preview" style="background: ${getCategoryColor(template.category)}">
+                        ${getCategoryIcon(template.category)}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">${template.name}</div>
+                        <div class="card-desc">${template.description}</div>
+                        <div class="card-tags">
+                            ${template.keywords.slice(0, 3).map(k => `<span class="card-tag">${k}</span>`).join('')}
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+        
+        function search() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query) window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+        }
+        
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') search();
+        });
+        
+        const getCategoryIcon = (category) => {
+            const icons = {
+                resume: '📝', budget: '📊', ppt: '📑', 'project-plan': '📋',
+                'daily-report': '📅', okr: '🎯', 'meeting-minutes': '📝',
+                'sales-followup': '📈', 'expense-tracking': '💰'
+            };
+            return icons[category] || '📄';
+        };
+        
+        const getCategoryColor = (category) => {
+            const colors = {
+                resume: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                budget: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                ppt: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'project-plan': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'daily-report': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+            };
+            return colors[category] || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        };
+        
+        loadTemplates();
+    </script>
+</body>
+</html>

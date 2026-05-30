@@ -1,0 +1,98 @@
+{
+    "version": "2.0",
+    "lastUpdated": "2026-05-30",
+    "categories": [
+        {
+            "id": "resume",
+            "name": "简历模板",
+            "nameEn": "Resume Templates",
+            "icon": "📝",
+            "path": "/templates/resume",
+            "count": 15,
+            "keywords": ["简历模板", "简历", "求职", "工作申请", "招聘"],
+            "relatedGuide": "resume-writing"
+        },
+        {
+            "id": "budget",
+            "name": "Excel预算表",
+            "nameEn": "Budget Templates",
+            "icon": "📊",
+            "path": "/templates/budget",
+            "count": 10,
+            "keywords": ["预算表", "Excel", "财务", "开支", "记账"],
+            "relatedGuide": "budget-making"
+        },
+        {
+            "id": "ppt",
+            "name": "PPT模板",
+            "nameEn": "PPT Templates",
+            "icon": "📑",
+            "path": "/templates/ppt",
+            "count": 12,
+            "keywords": ["PPT模板", "演示文稿", "PPT", "幻灯片", "汇报"],
+            "relatedGuide": "ppt-guide"
+        },
+        {
+            "id": "project-plan",
+            "name": "项目计划书",
+            "nameEn": "Project Plan Templates",
+            "icon": "📋",
+            "path": "/templates/project-plan",
+            "count": 8,
+            "keywords": ["项目计划", "项目管理", "甘特图", "里程碑"],
+            "relatedGuide": "project-planning"
+        },
+        {
+            "id": "daily-report",
+            "name": "工作日报",
+            "nameEn": "Daily Report Templates",
+            "icon": "📅",
+            "path": "/templates/daily-report",
+            "count": 8,
+            "keywords": ["工作日报", "周报", "月报", "工作记录"],
+            "relatedGuide": "daily-report-guide"
+        },
+        {
+            "id": "okr",
+            "name": "OKR模板",
+            "nameEn": "OKR Templates",
+            "icon": "🎯",
+            "path": "/templates/okr",
+            "count": 5,
+            "keywords": ["OKR", "目标管理", "绩效考核", "KPI"],
+            "relatedGuide": "okr-guide"
+        },
+        {
+            "id": "meeting-minutes",
+            "name": "会议纪要",
+            "nameEn": "Meeting Minutes Templates",
+            "icon": "📝",
+            "path": "/templates/meeting-minutes",
+            "count": 5,
+            "keywords": ["会议纪要", "会议记录", "周会", "例会"],
+            "relatedGuide": "meeting-notes-guide"
+        },
+        {
+            "id": "sales-followup",
+            "name": "销售跟进表",
+            "nameEn": "Sales Follow-up Templates",
+            "icon": "📈",
+            "path": "/templates/sales-followup",
+            "count": 4,
+            "keywords": ["销售跟进", "客户管理", "CRM", "商机"],
+            "relatedGuide": "sales-guide"
+        },
+        {
+            "id": "expense-tracking",
+            "name": "个人记账",
+            "nameEn": "Expense Tracking Templates",
+            "icon": "💰",
+            "path": "/templates/expense-tracking",
+            "count": 3,
+            "keywords": ["个人记账", "收支记录", "理财", "预算"],
+            "relatedGuide": "expense-guide"
+        }
+    ],
+    "totalCategories": 9,
+    "totalTemplates": 75
+}

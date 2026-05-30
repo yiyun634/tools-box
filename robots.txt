@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tools-box-topaz.vercel.app/sitemap.xml
+
+# Crawl-delay for polite bots
+Crawl-delay: 1
+
+# Disallow non-essential paths
+Disallow: /api/
+Disallow: /data/
+Disallow: /js/
+Disallow: /css/

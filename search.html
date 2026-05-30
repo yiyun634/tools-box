@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索结果 - 免费效率工具箱</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">🧰 <span>免费效率工具箱</span></a>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索工具、模板、教程...">
+                <button onclick="search()">🔍</button>
+            </div>
+            <nav class="nav">
+                <a href="/tools.html">🛠️ 工具</a>
+                <a href="/templates.html">📄 模板</a>
+                <a href="/guide.html">📚 教程</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">🔍 搜索结果</h1>
+                <p id="search-tip" class="page-desc">正在搜索...</p>
+            </div>
+            
+            <div id="search-results" class="search-results">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>© 2026 免费效率工具箱 - 所有工具和模板完全免费</p>
+        </div>
+    </footer>
+    
+    <script src="/js/data-loader.js"></script>
+    <script>
+        async function performSearch() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q') || '';
+            
+            if (!query) {
+                document.getElementById('search-results').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <div class="empty-state-title">请输入搜索关键词</div>
+                        <p><a href="/tools.html">浏览工具</a> 或 <a href="/templates.html">浏览模板</a></p>
+                    </div>
+                `;
+                return;
+            }
+            
+            document.getElementById('search-input').value = query;
+            document.getElementById('search-tip').textContent = `搜索: "${query}"`;
+            
+            const results = await dataLoader.search(query);
+            const container = document.getElementById('search-results');
+            
+            const total = results.tools.length + results.templates.length + results.guides.length;
+            let html = `<p class="search-tip">找到 ${total} 个结果</p>`;
+            
+            if (results.tools.length > 0) {
+                html += `
+                    <div class="result-group">
+                        <div class="result-group-title">🛠️ 工具 (${results.tools.length})</div>
+                        ${results.tools.map(tool => `
+                            <a href="${tool.path}" class="result-item">
+                                <div class="result-icon">${getCategoryIcon(tool.category)}</div>
+                                <div class="result-info">
+                                    <div class="result-title">${tool.name}</div>
+                                    <div class="result-type">工具 - ${tool.category}</div>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            if (results.templates.length > 0) {
+                html += `
+                    <div class="result-group">
+                        <div class="result-group-title">📄 模板 (${results.templates.length})</div>
+                        ${results.templates.map(template => `
+                            <a href="${template.path}" class="result-item">
+                                <div class="result-icon">${getCategoryIcon(template.category)}</div>
+                                <div class="result-info">
+                                    <div class="result-title">${template.name}</div>
+                                    <div class="result-type">模板 - ${template.category}</div>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            if (results.guides.length > 0) {
+                html += `
+                    <div class="result-group">
+                        <div class="result-group-title">📚 教程 (${results.guides.length})</div>
+                        ${results.guides.map(guide => `
+                            <a href="${guide.path}" class="result-item">
+                                <div class="result-icon">${guide.icon || '📚'}</div>
+                                <div class="result-info">
+                                    <div class="result-title">${guide.name}</div>
+                                    <div class="result-type">教程 - ${guide.category}</div>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            if (total === 0) {
+                html = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">😕</div>
+                        <div class="empty-state-title">未找到"${query}"相关结果</div>
+                        <p>尝试其他关键词，或浏览我们的 <a href="/tools.html">工具</a> 和 <a href="/templates.html">模板</a></p>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function search() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query) window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+        }
+        
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') search();
+        });
+        
+        const getCategoryIcon = (category) => {
+            const icons = {
+                resume: '📝', budget: '📊', ppt: '📑', 'project-plan': '📋',
+                'daily-report': '📅', okr: '🎯', 'meeting-minutes': '📝',
+                'sales-followup': '📈', 'expense-tracking': '💰', image: '🖼️', pdf: '📄', calc: '🔢'
+            };
+            return icons[category] || '📄';
+        };
+        
+        performSearch();
+    </script>
+</body>
+</html>

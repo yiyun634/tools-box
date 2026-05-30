@@ -3,225 +3,386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>免费在线工具箱 - 无需注册本地处理</title>
-    <meta name="description" content="免费的在线效率工具箱，提供图片压缩、图片拼接、图片裁剪、PDF转换、BMI计算器、ROI计算器、复利计算器等工具。无需注册，浏览器本地处理，保护隐私。">
-    <meta name="keywords" content="在线工具,免费工具,图片压缩,图片拼接,PDF转换,计算器,工具箱">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://tools-box-nine.vercel.app/">
+    <title>免费效率工具箱 - 模板/工具/教程一站式平台</title>
+    <meta name="description" content="免费的在线效率工具箱，提供图片压缩、PDF转换、简历模板、Excel预算表、PPT模板等实用工具。全部免费，浏览器本地处理，保护隐私。">
+    <meta name="keywords" content="免费工具,在线工具,模板下载,简历模板,Excel模板,PPT模板,图片压缩,PDF转换,计算器">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="免费在线工具箱 - 无需注册本地处理">
-    <meta property="og:description" content="提供图片压缩、图片拼接、图片裁剪、PDF转换、计算器等免费在线工具。浏览器本地处理，保护隐私。">
+    <meta property="og:title" content="免费效率工具箱">
+    <meta property="og:description" content="提供图片工具、PDF工具、模板中心、教程学习的一站式平台">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tools-box-nine.vercel.app/">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="免费在线工具箱 - 无需注册本地处理">
-    <meta name="twitter:description" content="提供图片压缩、图片拼接、图片裁剪、PDF转换、计算器等免费在线工具。">
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/main.css">
     
     <!-- JSON-LD -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "免费在线工具箱",
-        "url": "https://tools-box-nine.vercel.app/",
-        "description": "免费的在线效率工具箱，提供多种无需注册的在线工具。",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://tools-box-nine.vercel.app/{search_term_string}",
-            "query-input": "required name=search_term_string"
+        "@type": "WebApplication",
+        "name": "免费效率工具箱",
+        "description": "提供图片工具、PDF工具、模板中心、教程学习的一站式平台",
+        "url": "https://tools-box-topaz.vercel.app",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
         }
     }
     </script>
-    
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;color:#1e293b}
-        
-        .header{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);padding:15px 0;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
-        .nav-content{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center}
-        .logo{font-size:1.5rem;font-weight:700;color:#667eea;display:flex;align-items:center;gap:8px}
-        .nav-links{display:flex;gap:20px;flex-wrap:wrap}
-        .nav-links a{color:#64748b;text-decoration:none;font-weight:500;transition:color 0.3s}
-        .nav-links a:hover{color:#667eea}
-        
-        .hero{text-align:center;padding:60px 20px;color:white}
-        .hero h1{font-size:2.5rem;margin-bottom:15px;text-shadow:0 2px 10px rgba(0,0,0,0.2)}
-        .hero p{font-size:1.2rem;opacity:0.9;max-width:600px;margin:0 auto 30px}
-        .hero-features{display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
-        .hero-feature{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);padding:10px 20px;border-radius:50px;backdrop-filter:blur(5px)}
-        
-        .container{max-width:1200px;margin:0 auto;padding:40px 20px}
-        
-        .section-title{text-align:center;color:white;font-size:1.8rem;margin-bottom:30px}
-        
-        .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px}
-        
-        .tool-card{background:white;border-radius:16px;padding:25px;transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;text-decoration:none;color:inherit;display:block}
-        .tool-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,0.15)}
-        .tool-icon{font-size:3rem;margin-bottom:15px}
-        .tool-card h3{color:#1e293b;font-size:1.3rem;margin-bottom:10px}
-        .tool-card p{color:#64748b;font-size:0.95rem;line-height:1.5}
-        
-        .ad-section{margin:40px 0;text-align:center}
-        .ad-placeholder{background:rgba(255,255,255,0.1);border:2px dashed rgba(255,255,255,0.3);border-radius:12px;padding:40px;color:white;max-width:728px;margin:0 auto}
-        
-        .features{background:white;border-radius:16px;padding:40px;margin:40px 0}
-        .features h2{color:#1e293b;text-align:center;margin-bottom:30px;font-size:1.8rem}
-        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
-        .feature-item{text-align:center;padding:20px}
-        .feature-item .icon{font-size:2.5rem;margin-bottom:15px}
-        .feature-item h3{color:#1e293b;margin-bottom:10px}
-        .feature-item p{color:#64748b;line-height:1.6}
-        
-        .footer{background:rgba(0,0,0,0.2);text-align:center;padding:30px;color:rgba(255,255,255,0.8);margin-top:60px}
-        .footer a{color:white;text-decoration:none}
-        
-        @media(max-width:768px){
-            .hero h1{font-size:1.8rem}
-            .hero p{font-size:1rem}
-            .nav-links{gap:10px;font-size:0.9rem}
-            .hero-features{gap:15px}
-            .hero-feature{padding:8px 15px;font-size:0.9rem}
-        }
-        
-        .category-tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:30px}
-        .category-tab{background:rgba(255,255,255,0.2);color:white;padding:10px 20px;border-radius:50px;cursor:pointer;border:none;font-size:1rem;transition:all 0.3s}
-        .category-tab:hover,.category-tab.active{background:white;color:#667eea}
-    </style>
 </head>
 <body>
+    <!-- 头部导航 -->
     <header class="header">
-        <div class="nav-content">
-            <div class="logo">🛠️ 免费工具箱</div>
-            <nav class="nav-links">
-                <a href="/">全部工具</a>
-                <a href="/#image-tools">图片工具</a>
-                <a href="/#pdf-tools">PDF工具</a>
-                <a href="/#calc-tools">计算器</a>
+        <div class="container header-inner">
+            <a href="/" class="logo">🧰 <span>免费效率工具箱</span></a>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索工具、模板、教程...">
+                <button onclick="search()">🔍</button>
+            </div>
+            
+            <nav class="nav">
+                <a href="/tools.html">🛠️ 工具</a>
+                <a href="/templates.html">📄 模板</a>
+                <a href="/guide.html">📚 教程</a>
             </nav>
+            
+            <div class="user-menu">
+                <button class="icon-btn" id="favorites-btn" title="我的收藏">❤️</button>
+                <button class="icon-btn" id="recent-btn" title="最近使用">🕐</button>
+            </div>
         </div>
     </header>
     
-    <section class="hero">
-        <h1>🛠️ 免费在线工具箱</h1>
-        <p>无需注册、无需付费、无需API Key。所有工具浏览器本地处理，保护您的隐私。</p>
-        <div class="hero-features">
-            <div class="hero-feature">🔒 隐私安全</div>
-            <div class="hero-feature">⚡ 极速处理</div>
-            <div class="hero-feature">📱 支持移动端</div>
-            <div class="hero-feature">💯 完全免费</div>
+    <!-- 收藏面板 -->
+    <div class="favorites-panel" id="favorites-panel">
+        <div class="modal-header">
+            <h3>❤️ 我的收藏</h3>
+            <button class="icon-btn" onclick="toggleFavoritesPanel()">✕</button>
         </div>
-    </section>
+        <div class="modal-body" id="favorites-list">
+            <p class="text-muted">暂无收藏内容</p>
+        </div>
+    </div>
     
-    <main class="container">
-        <h2 class="section-title">🔥 热门工具</h2>
-        
-        <div class="ad-section">
-            <div class="ad-placeholder">Google AdSense 广告位 728x90</div>
-        </div>
-        
-        <div class="tools-grid">
-            <!-- 图片工具 -->
-            <a href="/image-compress" class="tool-card">
-                <div class="tool-icon">🗜️</div>
-                <h3>图片压缩</h3>
-                <p>在线无损压缩JPEG、PNG、WebP图片，浏览器本地处理，上传即压缩，保护隐私。</p>
-            </a>
-            
-            <a href="/image-merge" class="tool-card">
-                <div class="tool-icon">🖼️</div>
-                <h3>图片拼接</h3>
-                <p>将多张图片横向或纵向拼接成一张，支持自定义间距和背景颜色。</p>
-            </a>
-            
-            <a href="/image-crop" class="tool-card">
-                <div class="tool-icon">✂️</div>
-                <h3>图片裁剪</h3>
-                <p>在线裁剪图片，调整尺寸和比例，支持多种预设比例和自由裁剪。</p>
-            </a>
-            
-            <a href="/image-to-pdf" class="tool-card">
-                <div class="tool-icon">📄</div>
-                <h3>图片转PDF</h3>
-                <p>将JPG、PNG等图片转换为PDF文件，多图合并成一份PDF，方便分享和存档。</p>
-            </a>
-            
-            <a href="/pdf-to-image" class="tool-card">
-                <div class="tool-icon">🖼️</div>
-                <h3>PDF转图片</h3>
-                <p>将PDF文件的每一页转换为图片，支持PNG和JPEG格式，下载方便。</p>
-            </a>
-            
-            <!-- 计算器 -->
-            <a href="/bmi-calculator" class="tool-card">
-                <div class="tool-icon">⚖️</div>
-                <h3>BMI计算器</h3>
-                <p>计算身体质量指数，评估体重是否标准，支持儿童和成人两种模式。</p>
-            </a>
-            
-            <a href="/roi-calculator" class="tool-card">
-                <div class="tool-icon">📈</div>
-                <h3>ROI计算器</h3>
-                <p>计算投资回报率，分析投资项目的收益情况，辅助投资决策。</p>
-            </a>
-            
-            <a href="/compound-interest-calculator" class="tool-card">
-                <div class="tool-icon">💰</div>
-                <h3>复利计算器</h3>
-                <p>计算复利收益，查看时间价值，展示定投和单笔投资的增长曲线。</p>
-            </a>
-        </div>
-        
-        <div class="features">
-            <h2>为什么选择我们的工具箱？</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="icon">🔒</div>
-                    <h3>隐私保护</h3>
-                    <p>所有文件在您的浏览器中本地处理，不会上传到任何服务器，彻底保护您的隐私安全。</p>
+    <!-- 主内容区 -->
+    <main class="main" id="app">
+        <!-- 搜索结果容器 -->
+        <div class="container" id="content">
+            <!-- 横幅 -->
+            <section class="hero-banner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 48px; margin-bottom: 40px; color: white; text-align: center;">
+                <h1 style="font-size: 36px; margin-bottom: 16px;">欢迎使用免费效率工具箱</h1>
+                <p style="font-size: 18px; opacity: 0.9; margin-bottom: 24px;">图片工具 · PDF工具 · 模板中心 · 教程学习 · 全部免费</p>
+                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                    <a href="/tools.html" class="btn btn-primary" style="background: white; color: #667eea;">🛠️ 浏览工具</a>
+                    <a href="/templates.html" class="btn btn-primary" style="background: white; color: #667eea;">📄 下载模板</a>
+                    <a href="/guide.html" class="btn btn-primary" style="background: white; color: #667eea;">📚 学习教程</a>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">⚡</div>
-                    <h3>极速处理</h3>
-                    <p>基于浏览器的本地处理能力，无需等待服务器响应，处理速度极快，体验流畅。</p>
+            </section>
+            
+            <!-- 最近使用 -->
+            <section class="section" id="recently-used-section">
+                <div class="section-title">🕐 最近使用</div>
+                <div id="recently-used">
+                    <p class="text-muted">暂无最近使用记录</p>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">📱</div>
-                    <h3>移动端友好</h3>
-                    <p>完全响应式设计，在手机、平板、电脑上都能获得最佳使用体验。</p>
+            </section>
+            
+            <!-- 热门工具 -->
+            <section class="section">
+                <div class="section-title">
+                    🔥 热门工具
+                    <a href="/tools.html" style="font-size: 14px; color: var(--primary); text-decoration: none; margin-left: auto;">查看全部 →</a>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">💯</div>
-                    <h3>完全免费</h3>
-                    <p>所有工具永久免费使用，无隐藏收费，无使用限制，想用多少次都可以。</p>
+                <div class="card-grid" id="hot-tools"></div>
+            </section>
+            
+            <!-- 热门模板 -->
+            <section class="section">
+                <div class="section-title">
+                    📄 热门模板
+                    <a href="/templates.html" style="font-size: 14px; color: var(--primary); text-decoration: none; margin-left: auto;">查看全部 →</a>
                 </div>
-            </div>
-        </div>
-        
-        <div class="ad-section">
-            <div class="ad-placeholder">Google AdSense 广告位 728x90</div>
-        </div>
-        
-        <!-- SEO内容 -->
-        <div style="background:white;border-radius:16px;padding:40px;margin:40px 0;color:#1e293b;line-height:1.8">
-            <h2 style="margin-bottom:20px">关于我们</h2>
-            <p style="margin-bottom:15px">免费在线工具箱是一个提供多种实用在线工具的平台。我们致力于为用户提供便捷、高效、免费的在线工具服务，无需注册、无需下载、无需安装，一切都在浏览器中完成。</p>
-            <p style="margin-bottom:15px">我们的工具涵盖多个领域，包括图片处理工具（图片压缩、图片拼接、图片裁剪、图片格式转换等）、PDF工具（PDF转图片、图片转PDF等）、计算器工具（BMI计算器、ROI计算器、复利计算器等）。所有工具都经过精心设计，界面简洁美观，操作简单直观。</p>
-            <p style="margin-bottom:15px">与传统工具不同，我们的工具完全运行在您的浏览器中。这意味着您的文件永远不会离开您的设备，我们无法访问您的任何数据，真正做到了隐私保护。无论您是在办公室、家中还是旅途中，只要有网络和浏览器，就可以使用我们的工具。</p>
-            <p>我们将继续添加更多实用工具，丰富工具箱的功能。如果您有任何建议或需求，欢迎联系我们。</p>
+                <div class="card-grid" id="hot-templates"></div>
+            </section>
+            
+            <!-- 最新教程 -->
+            <section class="section">
+                <div class="section-title">
+                    📚 最新教程
+                    <a href="/guide.html" style="font-size: 14px; color: var(--primary); text-decoration: none; margin-left: auto;">查看全部 →</a>
+                </div>
+                <div class="card-grid" id="new-guides"></div>
+            </section>
+            
+            <!-- 模板分类 -->
+            <section class="section">
+                <div class="section-title">📁 模板分类</div>
+                <div class="card-grid" id="template-categories"></div>
+            </section>
+            
+            <!-- 工具分类 -->
+            <section class="section">
+                <div class="section-title">🛠️ 工具分类</div>
+                <div class="card-grid" id="tool-categories"></div>
+            </section>
         </div>
     </main>
     
+    <!-- 页脚 -->
     <footer class="footer">
-        <p>🛠️ 免费在线工具箱 - 所有工具永久免费</p>
-        <p style="margin-top:10px">
-            <a href="/sitemap.xml">网站地图</a> | 
-            <a href="/image-compress">图片压缩</a> | 
-            <a href="/bmi-calculator">BMI计算器</a>
-        </p>
+        <div class="container footer-inner">
+            <div class="footer-section">
+                <h4>🧰 工具</h4>
+                <a href="/image-compress">图片压缩</a>
+                <a href="/image-merge">图片拼接</a>
+                <a href="/image-crop">图片裁剪</a>
+                <a href="/image-to-pdf">图片转PDF</a>
+                <a href="/pdf-to-image">PDF转图片</a>
+            </div>
+            <div class="footer-section">
+                <h4>📄 模板</h4>
+                <a href="/templates/resume">简历模板</a>
+                <a href="/templates/budget">Excel预算表</a>
+                <a href="/templates/ppt">PPT模板</a>
+                <a href="/templates/project-plan">项目计划书</a>
+                <a href="/templates/okr">OKR模板</a>
+            </div>
+            <div class="footer-section">
+                <h4>📚 教程</h4>
+                <a href="/guide/resume-writing">如何写简历</a>
+                <a href="/guide/budget-making">如何制作预算表</a>
+                <a href="/guide/okr-guide">如何制定OKR</a>
+                <a href="/guide/ppt-design">PPT设计教程</a>
+                <a href="/guide/time-management">时间管理技巧</a>
+            </div>
+            <div class="footer-section">
+                <h4>ℹ️ 关于</h4>
+                <a href="/about">关于我们</a>
+                <a href="/contact">联系我们</a>
+                <a href="/privacy">隐私政策</a>
+                <a href="/terms">使用条款</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 免费效率工具箱 - 所有工具和模板完全免费</p>
+        </div>
     </footer>
+    
+    <!-- Scripts -->
+    <script src="/js/data-loader.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <script>
+        // 页面初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadHomePage();
+        });
+        
+        // 加载首页数据
+        async function loadHomePage() {
+            try {
+                const [tools, templates, guides, categories] = await Promise.all([
+                    dataLoader.getTools(),
+                    dataLoader.getTemplates(),
+                    dataLoader.getGuides(),
+                    dataLoader.getCategories()
+                ]);
+                
+                // 渲染热门工具
+                const hotToolsContainer = document.getElementById('hot-tools');
+                if (hotToolsContainer) {
+                    hotToolsContainer.innerHTML = tools.slice(0, 6).map(tool => `
+                        <a href="${tool.path}" class="card tool-card">
+                            <div class="tool-icon">${tool.icon}</div>
+                            <div class="tool-info">
+                                <div class="tool-name">${tool.name}</div>
+                                <div class="tool-desc">${tool.description}</div>
+                            </div>
+                        </a>
+                    `).join('');
+                }
+                
+                // 渲染热门模板
+                const hotTemplatesContainer = document.getElementById('hot-templates');
+                if (hotTemplatesContainer) {
+                    hotTemplatesContainer.innerHTML = templates.slice(0, 6).map(template => `
+                        <a href="${template.path}" class="card">
+                            <div class="card-preview" style="background: ${getCategoryColor(template.category)}">
+                                ${getCategoryIcon(template.category)}
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">${template.name}</div>
+                                <div class="card-desc">${template.description}</div>
+                            </div>
+                        </a>
+                    `).join('');
+                }
+                
+                // 渲染教程
+                const newGuidesContainer = document.getElementById('new-guides');
+                if (newGuidesContainer) {
+                    newGuidesContainer.innerHTML = guides.slice(0, 4).map(guide => `
+                        <a href="${guide.path}" class="card">
+                            <div class="card-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)">
+                                ${guide.icon || '📚'}
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">${guide.name}</div>
+                                <div class="card-desc">${guide.seo?.description?.substring(0, 60) || ''}...</div>
+                                <div class="card-tags">
+                                    <span class="card-tag">${guide.contentWords || 0}字</span>
+                                </div>
+                            </div>
+                        </a>
+                    `).join('');
+                }
+                
+                // 渲染模板分类
+                const templateCategoriesContainer = document.getElementById('template-categories');
+                if (templateCategoriesContainer) {
+                    templateCategoriesContainer.innerHTML = categories.slice(0, 6).map(cat => `
+                        <a href="/templates.html?category=${cat.id}" class="card" style="padding: 24px; text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 12px;">${cat.icon}</div>
+                            <div class="card-title">${cat.name}</div>
+                            <div class="card-desc">${cat.count} 个模板</div>
+                        </a>
+                    `).join('');
+                }
+                
+                // 渲染工具分类
+                const toolCategoriesContainer = document.getElementById('tool-categories');
+                if (toolCategoriesContainer) {
+                    const toolCategories = [
+                        { id: 'image', name: '🖼️ 图片工具', desc: '压缩/拼接/裁剪/格式转换', count: 4 },
+                        { id: 'pdf', name: '📄 PDF工具', desc: 'PDF与图片互转', count: 1 },
+                        { id: 'calc', name: '🔢 计算器', desc: 'BMI/ROI/复利计算', count: 3 }
+                    ];
+                    toolCategoriesContainer.innerHTML = toolCategories.map(cat => `
+                        <a href="/tools.html?category=${cat.id}" class="card" style="padding: 24px; text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 12px;">${cat.name.split(' ')[0]}</div>
+                            <div class="card-title">${cat.name.split(' ')[1]}</div>
+                            <div class="card-desc">${cat.desc}</div>
+                        </a>
+                    `).join('');
+                }
+                
+                // 渲染最近使用
+                loadRecentlyUsed();
+                
+                // 渲染收藏
+                loadFavorites();
+            } catch (error) {
+                console.error('Failed to load home page:', error);
+            }
+        }
+        
+        // 加载最近使用
+        function loadRecentlyUsed() {
+            try {
+                const local = localStorage.getItem('analytics');
+                if (!local) return;
+                
+                const data = JSON.parse(local);
+                const recentlyUsed = data?.recentlyUsed?.items || [];
+                
+                const container = document.getElementById('recently-used');
+                if (!container) return;
+                
+                if (recentlyUsed.length === 0) {
+                    container.innerHTML = '<p class="text-muted">暂无最近使用记录</p>';
+                    return;
+                }
+                
+                container.innerHTML = `
+                    <div class="recent-list">
+                        ${recentlyUsed.slice(0, 10).map(item => {
+                            const icon = item.type === 'template' ? '📄' : '🛠️';
+                            return `
+                                <a href="${item.path}" class="recent-item">
+                                    <div class="recent-icon">${icon}</div>
+                                    <div class="recent-name">${item.name}</div>
+                                </a>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            } catch (e) {
+                console.error('Failed to load recently used:', e);
+            }
+        }
+        
+        // 加载收藏
+        function loadFavorites() {
+            try {
+                const local = localStorage.getItem('analytics');
+                if (!local) return;
+                
+                const data = JSON.parse(local);
+                const favorites = data?.favorites?.items || [];
+                
+                const container = document.getElementById('favorites-list');
+                if (!container) return;
+                
+                if (favorites.length === 0) {
+                    container.innerHTML = '<p class="text-muted">暂无收藏内容</p>';
+                    return;
+                }
+                
+                container.innerHTML = favorites.map(item => `
+                    <a href="${item.path}" class="favorite-item">
+                        <span style="font-size: 24px;">${item.type === 'template' ? '📄' : '🛠️'}</span>
+                        <div>
+                            <div style="font-weight: 500;">${item.name}</div>
+                            <div style="font-size: 12px; color: var(--text-light);">${item.type === 'template' ? '模板' : '工具'}</div>
+                        </div>
+                    </a>
+                `).join('');
+            } catch (e) {
+                console.error('Failed to load favorites:', e);
+            }
+        }
+        
+        // 搜索功能
+        function search() {
+            const input = document.getElementById('search-input');
+            const query = input?.value?.trim();
+            if (query) {
+                window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+        
+        // 回车搜索
+        document.getElementById('search-input')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') search();
+        });
+        
+        // 切换收藏面板
+        function toggleFavoritesPanel() {
+            document.getElementById('favorites-panel')?.classList.toggle('open');
+        }
+        
+        document.getElementById('favorites-btn')?.addEventListener('click', () => {
+            document.getElementById('favorites-panel')?.classList.add('open');
+        });
+        
+        // 点击空白关闭
+        document.addEventListener('click', (e) => {
+            const panel = document.getElementById('favorites-panel');
+            const btn = document.getElementById('favorites-btn');
+            if (panel && !panel.contains(e.target) && !btn.contains(e.target)) {
+                panel.classList.remove('open');
+            }
+        });
+    </script>
+    
+    <style>
+        .text-muted { color: var(--text-light); }
+        .hero-banner h1 { color: white; }
+        .hero-banner p { color: rgba(255,255,255,0.9); }
+    </style>
 </body>
 </html>
