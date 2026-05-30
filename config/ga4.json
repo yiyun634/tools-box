@@ -1,0 +1,11 @@
+{
+    "measurementId": "",
+    "enabled": false,
+    "debugMode": false,
+    "trackRoutes": true,
+    "cookieDomain": "tools-box-topaz.vercel.app",
+    "cookieExpires": 63072000,
+    "fields": {
+        "send_page_view": false
+    }
+}

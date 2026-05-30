@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO监控面板 - 免费效率工具箱</title>
+    <meta name="description" content="免费效率工具箱SEO数据分析与监控面板">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/seo-dashboard/css/seo.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">🧰 <span>免费效率工具箱</span></a>
+            <nav class="nav">
+                <a href="/tools.html">🛠️ 工具</a>
+                <a href="/templates.html">📄 模板</a>
+                <a href="/guide.html">📚 教程</a>
+                <a href="/analytics">📊 运营</a>
+                <a href="/seo-dashboard" class="active">🔍 SEO</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main seo-dashboard">
+        <div class="container">
+            <div class="page-header">
+                <div class="header-row">
+                    <div>
+                        <h1 class="page-title">🔍 SEO监控面板</h1>
+                        <p class="page-desc">网站SEO健康度分析与监控</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="runAudit()">🔄 重新检测</button>
+                        <button class="btn btn-secondary" onclick="exportSEO()">📥 导出报告</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEO健康度概览 -->
+            <div class="seo-overview">
+                <div class="health-score">
+                    <div class="score-circle" id="health-score">
+                        <span class="score-value">100</span>
+                        <span class="score-label">健康度</span>
+                    </div>
+                    <div class="health-details">
+                        <div class="health-item">
+                            <span class="health-icon">✅</span>
+                            <span class="health-text">完整页面: <strong id="healthy-pages">121</strong></span>
+                        </div>
+                        <div class="health-item">
+                            <span class="health-icon">⚠️</span>
+                            <span class="health-text">警告页面: <strong id="warning-pages">0</strong></span>
+                        </div>
+                        <div class="health-item">
+                            <span class="health-icon">❌</span>
+                            <span class="health-text">错误页面: <strong id="error-pages">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 统计卡片 -->
+            <div class="seo-stats-grid">
+                <div class="seo-stat-card">
+                    <div class="seo-stat-icon">🗺️</div>
+                    <div class="seo-stat-value" id="sitemap-count">121</div>
+                    <div class="seo-stat-label">Sitemap页面数</div>
+                </div>
+                <div class="seo-stat-card">
+                    <div class="seo-stat-icon">_INDEXED</div>
+                    <div class="seo-stat-value" id="indexed-count">-</div>
+                    <div class="seo-stat-label">已收录（需GSC）</div>
+                    <div class="seo-stat-hint">连接Google Search Console查看</div>
+                </div>
+                <div class="seo-stat-card">
+                    <div class="seo-stat-icon">🚫</div>
+                    <div class="seo-stat-value" id="404-count">0</div>
+                    <div class="seo-stat-label">404页面</div>
+                </div>
+                <div class="seo-stat-card">
+                    <div class="seo-stat-icon">⛓️</div>
+                    <div class="seo-stat-value" id="internal-links">0</div>
+                    <div class="seo-stat-label">内链总数</div>
+                </div>
+            </div>
+            
+            <!-- Meta标签检查 -->
+            <div class="seo-section">
+                <h3>📋 Meta标签健康度</h3>
+                <div class="meta-stats">
+                    <div class="meta-stat success">
+                        <span class="meta-count" id="title-ok">121</span>
+                        <span class="meta-label">Title正常</span>
+                    </div>
+                    <div class="meta-stat success">
+                        <span class="meta-count" id="desc-ok">121</span>
+                        <span class="meta-label">Description正常</span>
+                    </div>
+                    <div class="meta-stat error">
+                        <span class="meta-count" id="title-missing">0</span>
+                        <span class="meta-label">Title缺失</span>
+                    </div>
+                    <div class="meta-stat error">
+                        <span class="meta-count" id="desc-missing">0</span>
+                        <span class="meta-label">Description缺失</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题页面列表 -->
+            <div class="seo-section">
+                <h3>⚠️ 待优化页面</h3>
+                <div class="issues-table">
+                    <table id="issues-table">
+                        <thead>
+                            <tr>
+                                <th>页面</th>
+                                <th>问题类型</th>
+                                <th>建议操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="issues-tbody">
+                            <tr><td colspan="3" class="empty-state">🎉 暂无问题页面！</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 内链统计 -->
+            <div class="seo-section">
+                <h3>⛓️ 内链分布</h3>
+                <div class="internal-links-chart">
+                    <canvas id="links-chart"></canvas>
+                </div>
+                <div class="top-linked-pages">
+                    <h4>外链最多页面 TOP10</h4>
+                    <div id="top-linked-list" class="top-list">
+                        <div class="loading"><div class="spinner"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GSC数据导入 -->
+            <div class="seo-section gsc-section">
+                <h3>📊 Google Search Console 数据</h3>
+                <p class="hint">导入GSC数据以获取真实收录情况和搜索关键词数据</p>
+                <button class="btn btn-primary" onclick="showGSCModal()">🔗 连接Google Search Console</button>
+                <div id="gsc-preview" class="gsc-preview" style="display:none;">
+                    <div class="gsc-metrics">
+                        <div class="gsc-metric">
+                            <span class="gsc-label">点击</span>
+                            <span class="gsc-value" id="gsc-clicks">-</span>
+                        </div>
+                        <div class="gsc-metric">
+                            <span class="gsc-label">展示</span>
+                            <span class="gsc-value" id="gsc-impressions">-</span>
+                        </div>
+                        <div class="gsc-metric">
+                            <span class="gsc-label">CTR</span>
+                            <span class="gsc-value" id="gsc-ctr">-</span>
+                        </div>
+                        <div class="gsc-metric">
+                            <span class="gsc-label">平均排名</span>
+                            <span class="gsc-value" id="gsc-position">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sitemap状态 -->
+            <div class="seo-section">
+                <h3>🗺️ Sitemap状态</h3>
+                <div class="sitemap-status">
+                    <div class="sitemap-item">
+                        <span class="sitemap-status-icon">✅</span>
+                        <span>Sitemap可访问</span>
+                        <a href="/sitemap.xml" target="_blank">查看</a>
+                    </div>
+                    <div class="sitemap-item">
+                        <span class="sitemap-status-icon">📄</span>
+                        <span>总URL数量</span>
+                        <strong id="sitemap-urls">121</strong>
+                    </div>
+                    <div class="sitemap-item">
+                        <span class="sitemap-status-icon">📅</span>
+                        <span>最后更新</span>
+                        <strong id="sitemap-lastmod">2026-05-30</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Robots.txt状态 -->
+            <div class="seo-section">
+                <h3>🤖 Robots.txt 状态</h3>
+                <div class="robots-status">
+                    <div class="sitemap-item">
+                        <span class="sitemap-status-icon">✅</span>
+                        <span>Robots.txt可访问</span>
+                        <a href="/robots.txt" target="_blank">查看</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>© 2026 免费效率工具箱 - SEO监控 | 最后更新: <span id="last-updated">-</span></p>
+        </div>
+    </footer>
+    
+    <!-- GSC导入模态框 -->
+    <div id="gsc-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>连接 Google Search Console</h3>
+                <button class="icon-btn" onclick="closeGSCModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p>选择数据导入方式：</p>
+                <div class="import-options">
+                    <div class="import-option">
+                        <h4>📄 CSV导入</h4>
+                        <p>从GSC导出的搜索分析CSV文件</p>
+                        <input type="file" id="gsc-file" accept=".csv" onchange="handleGSCFile(this)">
+                    </div>
+                    <div class="import-option">
+                        <h4>🔗 API直连</h4>
+                        <p>需要OAuth授权（即将推出）</p>
+                        <button class="btn btn-secondary" disabled>连接</button>
+                    </div>
+                </div>
+                <div id="import-preview" class="import-preview" style="display:none;">
+                    <h4>数据预览</h4>
+                    <div id="preview-content"></div>
+                    <button class="btn btn-primary" onclick="confirmImport()">确认导入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/seo-dashboard/js/seo-analyzer.js"></script>
+</body>
+</html>

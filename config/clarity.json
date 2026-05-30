@@ -1,0 +1,10 @@
+{
+    "projectId": "",
+    "enabled": false,
+    "heatmap": true,
+    "recording": true,
+    "clickTracking": true,
+    "scrollTracking": true,
+    "uploadDelay": 1000,
+    "correlation": true
+}
