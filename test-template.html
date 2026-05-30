@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>模板测试</title></head>
+<body>
+<h1>点击以下模板测试:</h1>
+<script src="/js/data-loader.js"></script>
+<script>
+dataLoader.getTemplates().then(templates => {
+    const container = document.getElementById('links');
+    container.innerHTML = templates.slice(0, 10).map(t => 
+        `<a href="${t.path}">${t.name} → ${t.path}</a><br>`
+    ).join('');
+    console.log('前3个模板:', templates.slice(0, 3));
+}).catch(err => {
+    document.body.innerHTML += '<p style="color:red">加载失败: ' + err + '</p>';
+});
+</script>
+<div id="links">加载中...</div>
+</body>
+</html>

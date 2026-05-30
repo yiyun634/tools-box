@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>模板链接验证</title>
+<style>
+body { font-family: Arial; padding: 20px; }
+.test-link { display: block; padding: 10px; margin: 5px; background: #f0f0f0; text-decoration: none; color: blue; }
+.test-link:hover { background: #e0e0e0; }
+</style>
+</head>
+<body>
+<h1>点击以下链接测试:</h1>
+<div id="links"></div>
+<script src="/js/data-loader.js"></script>
+<script>
+dataLoader.getTemplates().then(templates => {
+    const container = document.getElementById('links');
+    if (templates.length === 0) {
+        container.innerHTML = '<p style="color:red">模板加载失败！</p>';
+        return;
+    }
+    container.innerHTML = templates.slice(0, 5).map(t => 
+        `<a class="test-link" href="${t.path}" target="_blank">${t.name}: ${t.path}</a>`
+    ).join('');
+    console.log('加载了', templates.length, '个模板');
+}).catch(err => {
+    document.getElementById('links').innerHTML = '<p style="color:red">错误: ' + err + '</p>';
+});
+</script>
+</body>
+</html>
