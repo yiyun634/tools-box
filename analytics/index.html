@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO监控面板 - 免费效率工具箱</title>
+    <meta name="description" content="免费效率工具箱SEO数据分析面板，监控页面访问、用户搜索、热门内容排行">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/analytics/css/analytics.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">🧰 <span>免费效率工具箱</span></a>
+            <nav class="nav">
+                <a href="/tools.html">🛠️ 工具</a>
+                <a href="/templates.html">📄 模板</a>
+                <a href="/guide.html">📚 教程</a>
+                <a href="/analytics" class="active">📊 监控</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main analytics">
+        <div class="container">
+            <div class="page-header">
+                <div class="header-row">
+                    <div>
+                        <h1 class="page-title">📊 SEO监控面板</h1>
+                        <p class="page-desc">数据分析与监控中心</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="refreshData()">🔄 刷新</button>
+                        <button class="btn btn-secondary" onclick="exportData()">📥 导出数据</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 统计卡片 -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+                    <div class="stat-value" id="total-pages">-</div>
+                    <div class="stat-label">网站总页面数</div>
+                    <div class="stat-change positive">↑ 0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🗺️</div>
+                    <div class="stat-value" id="sitemap-count">-</div>
+                    <div class="stat-label">Sitemap收录数</div>
+                    <div class="stat-change positive">✓ 100%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👁️</div>
+                    <div class="stat-value" id="total-views">-</div>
+                    <div class="stat-label">总浏览量</div>
+                    <div class="stat-change positive" id="views-change">↑ 0%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📥</div>
+                    <div class="stat-value" id="total-downloads">-</div>
+                    <div class="stat-label">总下载量</div>
+                    <div class="stat-change positive" id="downloads-change">↑ 0%</div>
+                </div>
+            </div>
+            
+            <!-- 趋势图表 -->
+            <div class="chart-section">
+                <div class="section-header">
+                    <h3>📈 最近7天访问趋势</h3>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="dot blue"></span>浏览量</span>
+                        <span class="legend-item"><span class="dot green"></span>下载量</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trend-chart"></canvas>
+                </div>
+            </div>
+            
+            <!-- 热门排行 -->
+            <div class="rankings-grid">
+                <div class="ranking-section">
+                    <h3>🏆 热门模板 TOP10</h3>
+                    <div class="ranking-list" id="top-templates">
+                        <div class="loading"><div class="spinner"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-section">
+                    <h3>🔥 热门工具 TOP10</h3>
+                    <div class="ranking-list" id="top-tools">
+                        <div class="loading"><div class="spinner"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 搜索和收藏 -->
+            <div class="secondary-grid">
+                <div class="search-section">
+                    <h3>🔍 用户搜索关键词</h3>
+                    <div class="keyword-cloud" id="keyword-cloud">
+                        <div class="loading"><div class="spinner"></div></div>
+                    </div>
+                </div>
+                <div class="favorites-section">
+                    <h3>❤️ 收藏次数排行</h3>
+                    <div class="ranking-list compact" id="top-favorites">
+                        <div class="loading"><div class="spinner"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GSC导入 -->
+            <div class="gsc-section">
+                <div class="section-header">
+                    <h3>📊 Google Search Console 数据</h3>
+                    <button class="btn btn-secondary" onclick="showGSCImport()">📥 导入数据</button>
+                </div>
+                <div id="gsc-stats" class="gsc-stats">
+                    <p class="hint">导入GSC数据以获得更准确的搜索关键词和展示量分析</p>
+                    <div class="gsc-metrics" id="gsc-metrics" style="display: none;">
+                        <div class="gsc-metric">
+                            <span class="gsc-label">总点击</span>
+                            <span class="gsc-value" id="gsc-clicks">-</span>
+                        </div>
+                        <div class="gsc-metric">
+                            <span class="gsc-label">总展示</span>
+                            <span class="gsc-value" id="gsc-impressions">-</span>
+                        </div>
+                        <div class="gsc-metric">
+                            <span class="gsc-label">平均CTR</span>
+                            <span class="gsc-value" id="gsc-ctr">-</span>
+                        </div>
+                        <div class="gsc-metric">
+                            <span class="gsc-label">平均排名</span>
+                            <span class="gsc-value" id="gsc-position">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GSC导入模态框 -->
+                <div id="gsc-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>导入Google Search Console数据</h3>
+                            <button class="icon-btn" onclick="closeGSCModal()">✕</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>支持以下导入方式：</p>
+                            <div class="import-options">
+                                <div class="import-option">
+                                    <h4>📄 CSV文件导入</h4>
+                                    <p>从GSC导出的CSV文件，支持Search Analytics数据</p>
+                                    <input type="file" id="gsc-file" accept=".csv" onchange="handleGSCFile(this)">
+                                </div>
+                                <div class="import-option">
+                                    <h4>🔗 API直连（即将推出）</h4>
+                                    <p>连接Google API自动同步数据，需要OAuth授权</p>
+                                    <button class="btn btn-secondary" disabled>连接Google</button>
+                                </div>
+                            </div>
+                            <div id="import-preview" class="import-preview" style="display: none;">
+                                <h4>数据预览</h4>
+                                <div id="preview-content"></div>
+                                <button class="btn btn-primary" onclick="confirmImport()">确认导入</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 最近7天详细数据 -->
+            <div class="daily-stats-section">
+                <h3>📅 最近7天详细数据</h3>
+                <div class="daily-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>浏览量</th>
+                                <th>下载量</th>
+                                <th>收藏数</th>
+                                <th>搜索次数</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daily-tbody">
+                            <tr><td colspan="5"><div class="loading"><div class="spinner"></div></div></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>© 2026 免费效率工具箱 - 数据最后更新: <span id="last-updated">-</span></p>
+        </div>
+    </footer>
+    
+    <script src="/analytics/js/charts.js"></script>
+    <script src="/analytics/js/analytics.js"></script>
+</body>
+</html>

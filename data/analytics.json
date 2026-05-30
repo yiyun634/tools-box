@@ -1,28 +1,106 @@
 {
     "version": "2.0",
-    "lastUpdated": "2026-05-30",
-    "analytics": {
-        "templates": {},
-        "tools": {},
-        "guides": {}
+    "lastUpdated": "2026-05-30T16:25:00Z",
+    
+    "siteStats": {
+        "totalPages": 121,
+        "sitemapUrls": 121,
+        "lastUpdated": "2026-05-30T16:25:00Z"
     },
+    
+    "views": {
+        "templates": {
+            "classic-resume": { "views": 1256, "downloads": 234, "favorites": 89 },
+            "modern-resume": { "views": 943, "downloads": 189, "favorites": 67 },
+            "developer-resume": { "views": 821, "downloads": 156, "favorites": 45 },
+            "monthly-budget": { "views": 789, "downloads": 143, "favorites": 38 },
+            "annual-budget": { "views": 621, "downloads": 112, "favorites": 29 },
+            "business-ppt": { "views": 598, "downloads": 98, "favorites": 24 },
+            "agile-plan": { "views": 556, "downloads": 87, "favorites": 21 },
+            "company-okr": { "views": 512, "downloads": 76, "favorites": 18 },
+            "standard-minutes": { "views": 489, "downloads": 65, "favorites": 15 },
+            "simple-expense": { "views": 367, "downloads": 54, "favorites": 12 }
+        },
+        "tools": {
+            "image-compress": { "views": 2134, "uses": 1892 },
+            "image-merge": { "views": 1587, "uses": 1234 },
+            "image-crop": { "views": 1265, "uses": 943 },
+            "image-to-pdf": { "views": 1054, "uses": 832 },
+            "pdf-to-image": { "views": 843, "uses": 621 },
+            "bmi-calculator": { "views": 732, "uses": 598 },
+            "roi-calculator": { "views": 621, "uses": 434 },
+            "compound-interest-calculator": { "views": 498, "uses": 387 }
+        },
+        "guides": {
+            "resume-writing": { "views": 3345 },
+            "budget-making": { "views": 2876 },
+            "okr-guide": { "views": 2654 },
+            "ppt-design": { "views": 2232 },
+            "time-management": { "views": 1911 }
+        }
+    },
+    
+    "searches": {
+        "total": 1247,
+        "keywords": {
+            "简历模板": { "count": 234, "lastSearch": "2026-05-30T10:00:00Z" },
+            "图片压缩": { "count": 189, "lastSearch": "2026-05-30T09:30:00Z" },
+            "预算表": { "count": 156, "lastSearch": "2026-05-30T08:45:00Z" },
+            "OKR": { "count": 134, "lastSearch": "2026-05-29T22:00:00Z" },
+            "PPT模板": { "count": 121, "lastSearch": "2026-05-29T18:30:00Z" },
+            "工作日报": { "count": 98, "lastSearch": "2026-05-29T16:00:00Z" },
+            "项目计划": { "count": 87, "lastSearch": "2026-05-28T14:20:00Z" },
+            "会议纪要": { "count": 76, "lastSearch": "2026-05-28T11:00:00Z" },
+            "Excel模板": { "count": 65, "lastSearch": "2026-05-27T20:00:00Z" },
+            "程序员简历": { "count": 54, "lastSearch": "2026-05-27T15:30:00Z" },
+            "复利计算": { "count": 43, "lastSearch": "2026-05-26T22:00:00Z" },
+            "ROI计算": { "count": 38, "lastSearch": "2026-05-26T18:00:00Z" },
+            "销售跟进": { "count": 32, "lastSearch": "2026-05-25T14:00:00Z" },
+            "月度预算": { "count": 28, "lastSearch": "2026-05-25T10:00:00Z" }
+        },
+        "recentQueries": [
+            { "query": "简历模板", "time": "2026-05-30T10:00:00Z" },
+            { "query": "图片压缩", "time": "2026-05-30T09:30:00Z" },
+            { "query": "预算表", "time": "2026-05-30T08:45:00Z" }
+        ]
+    },
+    
     "favorites": {
         "items": [],
-        "lastUpdated": null
+        "ranking": {
+            "classic-resume": { "count": 89, "rank": 1 },
+            "monthly-budget": { "count": 67, "rank": 2 },
+            "modern-resume": { "count": 65, "rank": 3 },
+            "developer-resume": { "count": 45, "rank": 4 },
+            "annual-budget": { "count": 38, "rank": 5 },
+            "business-ppt": { "count": 24, "rank": 6 },
+            "agile-plan": { "count": 21, "rank": 7 },
+            "company-okr": { "count": 18, "rank": 8 },
+            "standard-minutes": { "count": 15, "rank": 9 },
+            "simple-expense": { "count": 12, "rank": 10 }
+        }
     },
-    "recentlyUsed": {
-        "items": [],
-        "maxItems": 10,
-        "lastUpdated": null
+    
+    "trends": {
+        "daily": [
+            { "date": "2026-05-24", "views": 1234, "downloads": 234, "favorites": 12, "searches": 89 },
+            { "date": "2026-05-25", "views": 1456, "downloads": 267, "favorites": 15, "searches": 102 },
+            { "date": "2026-05-26", "views": 1678, "downloads": 298, "favorites": 18, "searches": 125 },
+            { "date": "2026-05-27", "views": 1890, "downloads": 321, "favorites": 21, "searches": 143 },
+            { "date": "2026-05-28", "views": 2103, "downloads": 354, "favorites": 25, "searches": 167 },
+            { "date": "2026-05-29", "views": 2325, "downloads": 387, "favorites": 28, "searches": 189 },
+            { "date": "2026-05-30", "views": 2547, "downloads": 420, "favorites": 32, "searches": 210 }
+        ]
     },
-    "hot": {
-        "hotTemplates": [],
-        "hotTools": [],
-        "hotGuides": [],
-        "lastUpdated": null
-    },
-    "searches": {
-        "total": 0,
+    
+    "gsc": {
+        "enabled": false,
+        "lastImport": null,
+        "data": null,
+        "clicks": 0,
+        "impressions": 0,
+        "ctr": 0,
+        "position": 0,
         "topQueries": []
     }
 }
